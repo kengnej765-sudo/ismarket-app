@@ -1,4 +1,5 @@
 name: Build Android APK
+name: Build Android APK
 
 on:
   push:
@@ -28,6 +29,9 @@ jobs:
 
       - name: Ajouter la plateforme Android (genere le dossier android/)
         run: npx cap add android
+
+      - name: Generer les icones de l'app a partir du logo
+        run: npx @capacitor/assets generate --android --iconBackgroundColor '#0c1228' --iconBackgroundColorDark '#0c1228'
 
       - name: Synchroniser le contenu web vers Android
         run: npx cap sync android
