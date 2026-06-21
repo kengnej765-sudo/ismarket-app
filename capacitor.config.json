@@ -1,0 +1,8 @@
+{
+  "appId": "com.ismarket.app",
+  "appName": "ISMarket",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": true
+  }
+}
