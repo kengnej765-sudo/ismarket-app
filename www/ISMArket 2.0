@@ -1,0 +1,570 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: https://flourishing-heliotrope-ee586f.netlify.app/
+Subject: ISMArket 2.0
+Date: Sun, 21 Jun 2026 20:08:34 +0100
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--ajK5IYmCeubClcld168GeTu8yDyjeme0zMM5TPZHp1----"
+
+
+------MultipartBoundary--ajK5IYmCeubClcld168GeTu8yDyjeme0zMM5TPZHp1----
+Content-Type: text/html
+Content-ID: <frame-401582A64994F87CEDB13F533631E2EC@mhtml.blink>
+Content-Transfer-Encoding: binary
+Content-Location: https://flourishing-heliotrope-ee586f.netlify.app/
+
+<!DOCTYPE html><html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="cid:css-2a002d65-8bfe-4e54-a0e4-2d132e3470b9@mhtml.blink" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ISMArket 2.0</title>
+<meta name="theme-color" content="#0a0a0a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ISMArket">
+
+</head>
+<body>
+<div id="toast"></div>
+
+<!-- HOME -->
+<div class="scr" id="s-home">
+  <div class="tb"><div id="logo-home"></div>
+    <div style="display:flex;gap:7px;">
+      <div class="ib">🔔<span class="ibdot" id="notif-dot"></span></div>
+      <div class="ib"><span id="buyer-ava-h">👤</span></div>
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,#1a0a00,#2a1400);border:1px solid rgba(249,115,22,.3);border-radius:14px;padding:13px 14px;margin:10px 12px;display:flex;align-items:center;gap:12px;">
+    <span style="font-size:28px;">🎁</span>
+    <div><div style="font-size:13px;font-weight:700;color:var(--orange);">2 mois GRATUITS pour les vendeurs !</div><div style="font-size:11.5px;color:var(--t2);">Ouvre ta boutique maintenant →</div></div>
+  </div>
+  <div style="display:flex;gap:8px;padding:0 12px 10px;" id="counters"></div>
+  <div style="padding:4px 12px 6px;display:flex;gap:8px;">
+    <div class="swrap" style="flex:1;margin-bottom:0;"><span class="sico">🔍</span><input class="sinp" id="home-search" placeholder="Rechercher un produit..."></div>
+    <button style="width:44px;height:44px;border-radius:50%;background:var(--bg3);border:1px solid var(--line);color:var(--t2);font-size:18px;cursor:pointer;">🎤</button>
+  </div>
+  <div class="chips" id="cat-chips"></div>
+  <div class="chips" id="city-chips" style="padding-top:2px;"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px 4px;">
+    <span style="font-size:15px;font-weight:700;" id="grid-title">Tous les produits</span>
+    <select style="background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:5px 10px;color:var(--text);font-size:12px;outline:none;" id="sort-sel">
+      <option value="recent">Plus récents</option><option value="popular">Popularité</option>
+      <option value="price-asc">Prix ↑</option><option value="price-desc">Prix ↓</option><option value="rating">Meilleures notes</option>
+    </select>
+  </div>
+  <div class="pgrid" id="home-grid"></div>
+</div>
+
+<!-- RECHERCHE -->
+<div class="scr" id="s-search">
+  <div class="tb">
+    <button class="ib" style="background:none;border:none;font-size:20px;">←</button>
+    <span style="font-size:15px;font-weight:700;">Recherche avancée</span>
+    <div style="width:36px;"></div>
+  </div>
+  <div style="padding:12px 12px 6px;">
+    <div class="swrap"><span class="sico">🔍</span><input class="sinp" id="search-inp" placeholder="Que cherches-tu ?"></div>
+    <div class="f-row">
+      <div class="f" style="margin-bottom:8px;"><label>Prix min</label><input type="number" id="f-pmin" placeholder="0"></div>
+      <div class="f" style="margin-bottom:8px;"><label>Prix max</label><input type="number" id="f-pmax" placeholder="∞"></div>
+    </div>
+    <div class="f-row">
+      <div class="f" style="margin-bottom:4px;"><label>Ville</label><select id="f-city"><option value="">Toutes</option></select></div>
+      <div class="f" style="margin-bottom:4px;"><label>Catégorie</label><select id="f-cat"><option value="">Toutes</option></select></div>
+    </div>
+  </div>
+  <div style="padding:4px 14px 6px;display:flex;justify-content:space-between;">
+    <span style="font-size:13px;color:var(--t2);" id="search-count"></span>
+  </div>
+  <div class="pgrid" id="search-grid"></div>
+</div>
+
+<!-- AUTH ACHETEUR -->
+<div class="scr" id="s-bauth">
+  <div class="tb"><button class="ib" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">Mon compte</span><div style="width:36px;"></div></div>
+  <div style="text-align:center;padding:24px 18px 20px;background:linear-gradient(160deg,#111,#0a0a0a);border-bottom:1px solid var(--line);">
+    <div id="logo-bauth" style="margin-bottom:10px;"><svg width="60" height="60" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><rect width="512" height="512" rx="110" fill="#0a0a0a"></rect><ellipse cx="256" cy="220" rx="148" ry="65" fill="none" stroke="#E8A93D" stroke-width="11" transform="rotate(-30 256 220)"></ellipse><ellipse cx="256" cy="220" rx="148" ry="65" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="5" transform="rotate(60 256 220)"></ellipse><polygon points="340,74 349,100 377,100 355,116 364,142 340,126 316,142 325,116 303,100 331,100" fill="#E8A93D"></polygon><text x="256" y="308" text-anchor="middle" font-family="Georgia,serif" font-size="190" font-weight="900" fill="#fff">I</text></svg><div style="font-size:20px;font-weight:800;margin-top:10px;">ISM<span style="color:#E8A93D;">ARKET</span> <span style="font-size:10px;background:linear-gradient(135deg,#E8A93D,#f5c842);color:#000;border-radius:5px;padding:2px 6px;">2.0</span></div></div>
+    <div style="font-size:13px;color:var(--t2);">Rejoins des milliers d'acheteurs</div>
+  </div>
+  <div style="padding:18px 14px;">
+    <div style="display:flex;gap:7px;margin-bottom:16px;">
+      <button class="btn bg bsm" id="bt-login" style="flex:1;padding:10px;">Se connecter</button>
+      <button class="btn bd bsm" id="bt-reg" style="flex:1;padding:10px;">S'inscrire</button>
+    </div>
+    <div id="bf-login">
+      <div class="f"><label>Email</label><input type="email" id="bl-email" placeholder="toi@exemple.com"></div>
+      <div class="f"><label>Mot de passe</label><input type="password" id="bl-pass" placeholder="••••••••"></div>
+      <button class="btn bg">Se connecter</button>
+    </div>
+    <div id="bf-reg" class="h">
+      <div class="f"><label>Prénom &amp; Nom</label><input type="text" id="br-name" placeholder="Marie Dupont"></div>
+      <div class="f"><label>Téléphone</label><input type="tel" id="br-phone" placeholder="6XX XXX XXX"></div>
+      <div class="f"><label>Email</label><input type="email" id="br-email" placeholder="toi@exemple.com"></div>
+      <div class="f"><label>Mot de passe</label><input type="password" id="br-pass" placeholder="Min. 6 caractères"></div>
+      <div class="f"><label>Ville</label><select id="br-city"><option value="Douala">Douala</option><option value="Yaoundé">Yaoundé</option><option value="Bafoussam">Bafoussam</option><option value="Garoua">Garoua</option><option value="Maroua">Maroua</option><option value="Bertoua">Bertoua</option><option value="Buea">Buea</option><option value="Ngaoundéré">Ngaoundéré</option><option value="Bamenda">Bamenda</option><option value="Kribi">Kribi</option></select></div>
+      <button class="btn bg">Créer mon compte gratuit</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROFIL ACHETEUR -->
+<div class="scr" id="s-bprofil">
+  <div class="tb"><button class="ib" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">Mon profil</span><div class="ib">✏️</div></div>
+  <div style="padding:18px 14px 0;text-align:center;">
+    <div class="ava" style="margin:0 auto 12px;" id="bp-ava">👤</div>
+    <div style="font-size:19px;font-weight:800;" id="bp-name">—</div>
+    <div style="font-size:13px;color:var(--t2);margin-top:3px;" id="bp-meta">—</div>
+  </div>
+  <div style="padding:14px;"><div class="div"></div><div id="bp-stats" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;"></div><div id="bp-menu"></div></div>
+</div>
+
+<!-- FAVORIS -->
+<div class="scr" id="s-favs">
+  <div class="tb"><button class="ib" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">❤️ Mes favoris</span><div style="width:36px;"></div></div>
+  <div class="pgrid" id="favs-grid"></div>
+</div>
+
+<!-- AUTH VENDEUR -->
+<div class="scr" id="s-vauth">
+  <div class="tb"><button class="ib" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">Espace Vendeur</span><div style="width:36px;"></div></div>
+  <div style="text-align:center;padding:24px 18px 20px;background:linear-gradient(160deg,#111,#1a1a00);border-bottom:1px solid var(--line);">
+    <div id="logo-vauth" style="margin-bottom:10px;"><svg width="60" height="60" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><rect width="512" height="512" rx="110" fill="#0a0a0a"></rect><ellipse cx="256" cy="220" rx="148" ry="65" fill="none" stroke="#E8A93D" stroke-width="11" transform="rotate(-30 256 220)"></ellipse><ellipse cx="256" cy="220" rx="148" ry="65" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="5" transform="rotate(60 256 220)"></ellipse><polygon points="340,74 349,100 377,100 355,116 364,142 340,126 316,142 325,116 303,100 331,100" fill="#E8A93D"></polygon><text x="256" y="308" text-anchor="middle" font-family="Georgia,serif" font-size="190" font-weight="900" fill="#fff">I</text></svg><div style="font-size:20px;font-weight:800;margin-top:10px;">ISM<span style="color:#E8A93D;">ARKET</span> <span style="font-size:10px;background:linear-gradient(135deg,#E8A93D,#f5c842);color:#000;border-radius:5px;padding:2px 6px;">2.0</span></div></div>
+    <div style="font-size:13px;color:var(--t2);">Vends à ta ville, vends à tout le pays.</div>
+  </div>
+  <div style="padding:18px 14px;">
+    <div style="display:flex;gap:7px;margin-bottom:16px;">
+      <button class="btn bg bsm" id="vt-login" style="flex:1;padding:10px;">Se connecter</button>
+      <button class="btn bd bsm" id="vt-reg" style="flex:1;padding:10px;">Créer ma boutique</button>
+    </div>
+    <div id="vf-login">
+      <div class="f"><label>Email</label><input type="email" id="vl-e" placeholder="toi@exemple.com"></div>
+      <div class="f"><label>Mot de passe</label><input type="password" id="vl-p" placeholder="••••••••"></div>
+      <button class="btn bg">Entrer dans ma boutique</button>
+    </div>
+    <div id="vf-reg" class="h">
+      <div class="f"><label>Nom de la boutique *</label><input type="text" id="vr-shop" placeholder="Ex: Chez Maman Rosa"></div>
+      <div class="f"><label>Description</label><textarea id="vr-desc" rows="2" placeholder="Décris ta boutique..."></textarea></div>
+      <div class="f-row">
+        <div class="f"><label>Téléphone *</label><input type="tel" id="vr-phone" placeholder="6XX XXX XXX"></div>
+        <div class="f"><label>Ville *</label><select id="vr-city"><option value="Douala">Douala</option><option value="Yaoundé">Yaoundé</option><option value="Bafoussam">Bafoussam</option><option value="Garoua">Garoua</option><option value="Maroua">Maroua</option><option value="Bertoua">Bertoua</option><option value="Buea">Buea</option><option value="Ngaoundéré">Ngaoundéré</option><option value="Bamenda">Bamenda</option><option value="Kribi">Kribi</option></select></div>
+      </div>
+      <div class="f"><label>Quartier *</label><input type="text" id="vr-qtr" placeholder="Ex: Akwa, Bastos..."></div>
+      <div class="f"><label>Email *</label><input type="email" id="vr-email" placeholder="toi@exemple.com"></div>
+      <div class="f"><label>Mot de passe *</label><input type="password" id="vr-pass" placeholder="Min. 6 caractères"></div>
+      <div class="card-gold" style="border-radius:12px;padding:12px;margin-bottom:13px;">
+        <div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:4px;">🎉 OFFRE DE LANCEMENT</div>
+        <div style="font-size:13px;color:var(--t2);line-height:1.5;">✅ 60 jours GRATUITS · Boutique certifiée après validation<br>Ensuite : <strong style="color:var(--gold);">5 000 FCFA/mois</strong></div>
+      </div>
+      <button class="btn bg">Envoyer ma demande</button>
+    </div>
+  </div>
+</div>
+
+<!-- VENDOR DASH -->
+<div class="scr" id="s-vdash">
+  <div class="vhero">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;">
+      <div id="logo-vdash"></div>
+      <div style="display:flex;gap:7px;">
+        <div class="ib">💬<span class="ibdot" id="chat-dot"></span></div>
+        <div class="ib">🔔</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px;">
+      <div class="ava" id="v-ava">🏪</div>
+      <div>
+        <div style="font-size:18px;font-weight:800;" id="v-shop">Ma boutique</div>
+        <div style="font-size:12px;color:var(--t2);" id="v-loc">—</div>
+        <div style="margin-top:4px;" id="v-badges"></div>
+      </div>
+    </div>
+    <div class="card-gold" style="border-radius:12px;padding:13px;" id="v-trial"></div>
+  </div>
+  <div style="padding:13px 14px 0;">
+    <div style="font-size:14px;font-weight:700;margin-bottom:9px;">📊 Statistiques</div>
+    <div class="sgrid" id="v-stats"></div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Accès rapides</div>
+    <div class="qa">
+      <div class="qai"><div class="qaico">🛍️</div><div style="font-size:10px;color:var(--t2);font-weight:600;">Produits</div></div>
+      <div class="qai"><div class="qaico">📦</div><div style="font-size:10px;color:var(--t2);font-weight:600;">Commandes</div></div>
+      <div class="qai"><div class="qaico">📈</div><div style="font-size:10px;color:var(--t2);font-weight:600;">Stats</div></div>
+      <div class="qai"><div class="qaico" style="position:relative;">💬<span class="ibdot" id="chat-dot2"></span></div><div style="font-size:10px;color:var(--t2);font-weight:600;">Support</div></div>
+      <div class="qai"><div class="qaico">👤</div><div style="font-size:10px;color:var(--t2);font-weight:600;">Profil</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUITS VENDEUR -->
+<div class="scr" id="s-vprods">
+  <div class="tb"><button class="ib" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">Mes produits</span><button class="ib bg" style="font-size:20px;border:none;">+</button></div>
+  <div style="padding:11px 13px;">
+    <div class="swrap"><span class="sico">🔍</span><input class="sinp" id="vps" placeholder="Rechercher..."></div>
+    <div class="chips" style="padding:0 0 10px;" id="vpf"></div>
+    <div id="vp-list"></div>
+  </div>
+</div>
+
+<!-- COMMANDES -->
+<div class="scr" id="s-vcmds">
+  <div class="tb"><button class="ib" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">Commandes</span><div style="width:36px;"></div></div>
+  <div style="padding:11px 13px;"><div class="chips" style="padding:0 0 10px;" id="vcf"></div><div id="vcmds-list"></div></div>
+</div>
+
+<!-- STATS VENDEUR -->
+<div class="scr" id="s-vstats">
+  <div class="tb"><button class="ib" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">📈 Statistiques</span><div style="width:36px;"></div></div>
+  <div style="padding:13px 14px;" id="vstats-c"></div>
+</div>
+
+<!-- CHAT VENDEUR -->
+<div class="scr" id="s-vchat">
+  <div class="tb"><button class="ib" style="background:none;border:none;font-size:20px;">←</button><div><div style="font-size:15px;font-weight:700;">Support ISMArket</div><div style="font-size:11px;color:var(--green);">● En ligne</div></div><div style="width:36px;"></div></div>
+  <div id="vchat-msgs" style="padding:13px;padding-bottom:80px;min-height:60vh;"></div>
+  <div class="chat-ir"><input class="cinp" id="vchat-inp" placeholder="Écrire un message..."><button class="csend">➤</button></div>
+</div>
+
+<!-- PROFIL VENDEUR -->
+<div class="scr" id="s-vprofil">
+  <div class="tb"><button class="ib" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">Ma boutique</span><div class="ib">✏️</div></div>
+  <div style="padding:16px 14px;" id="vprofil-c"></div>
+</div>
+
+<!-- ADMIN -->
+<div class="scr on" id="s-admin">
+  <div class="tb"><div id="logo-admin"><div style="display:flex;align-items:center;gap:9px;"><svg width="30" height="30" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><rect width="512" height="512" rx="110" fill="#0a0a0a"></rect><ellipse cx="256" cy="220" rx="148" ry="65" fill="none" stroke="#E8A93D" stroke-width="11" transform="rotate(-30 256 220)"></ellipse><ellipse cx="256" cy="220" rx="148" ry="65" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="5" transform="rotate(60 256 220)"></ellipse><polygon points="340,74 349,100 377,100 355,116 364,142 340,126 316,142 325,116 303,100 331,100" fill="#E8A93D"></polygon><text x="256" y="308" text-anchor="middle" font-family="Georgia,serif" font-size="190" font-weight="900" fill="#fff">I</text></svg><div style="font-size:16px;font-weight:800;">ISM<span style="color:#E8A93D;">ARKET</span><span style="font-size:9px;background:linear-gradient(135deg,#E8A93D,#f5c842);color:#000;border-radius:5px;padding:2px 5px;margin-left:5px;font-weight:700;">2.0</span></div></div></div><div class="ib">🔔</div></div>
+  <div style="padding:13px 14px;">
+    <div id="adm-lock" class="h">
+      <div style="text-align:center;padding:28px 0 16px;"><div style="font-size:50px;margin-bottom:12px;">🔐</div><div style="font-size:17px;font-weight:700;margin-bottom:5px;">Administration</div><div style="font-size:13px;color:var(--t2);">Accès réservé</div></div>
+      <div class="f"><label>Mot de passe admin</label><input type="password" id="adm-pwd" placeholder="••••••••"></div>
+      <button class="btn bg">Accéder</button>
+      <button class="btn bd">Retour à l'accueil</button>
+    </div>
+    <div id="adm-panel" class="">
+      <div style="font-size:11px;color:var(--t2);letter-spacing:.07em;text-transform:uppercase;margin-bottom:12px;">Tableau de bord ISMArket 2.0</div>
+      <div class="sgrid" id="adm-stats"><div class="scard"><div class="snum">0</div><div class="slbl">Actifs</div></div><div class="scard"><div class="snum">1</div><div class="slbl">Acheteurs</div></div><div class="scard"><div class="snum">3</div><div class="slbl">Produits</div></div><div class="scard"><div class="snum">0</div><div class="slbl">Signalements</div></div></div>
+      <div class="chips" style="padding:0 0 12px;" id="adm-tabs"><div class="chip on">⏳ Demandes</div><div class="chip">🛍️ Vendeurs</div><div class="chip">📦 Produits</div><div class="chip">⚠️ Signalements</div><div class="chip">👥 Membres</div><div class="chip">📊 Stats</div></div>
+      <div id="adm-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN CHAT -->
+<div class="scr" id="s-admchat">
+  <div class="tb"><button class="ib" style="background:none;border:none;font-size:20px;">←</button><div><div style="font-size:15px;font-weight:700;" id="adc-title">Chat</div><div style="font-size:11px;color:var(--t2);" id="adc-sub"></div></div><div style="width:36px;"></div></div>
+  <div id="adc-msgs" style="padding:13px;padding-bottom:80px;min-height:60vh;"></div>
+  <div class="chat-ir"><input class="cinp" id="adc-inp" placeholder="Répondre..."><button class="csend">➤</button></div>
+</div>
+
+<!-- NAVBARS -->
+<div class="bnav h" id="nav-buyer">
+  <button class="bn on"><div class="ni">🏠</div>Accueil</button>
+  <button class="bn"><div class="ni">🔍</div>Recherche</button>
+  <button class="bnadd">🛍️</button>
+  <button class="bn"><div class="ni">❤️</div>Favoris</button>
+  <button class="bn"><div class="ni">👤</div>Profil</button>
+</div>
+<div class="bnav h" id="nav-vendor">
+  <button class="bn on"><div class="ni">🏠</div>Accueil</button>
+  <button class="bn"><div class="ni">🛍️</div>Produits</button>
+  <button class="bnadd">+</button>
+  <button class="bn"><div class="ni">📦</div>Commandes</button>
+  <button class="bn"><div class="ni">👤</div>Profil</button>
+</div>
+
+<!-- MODALS -->
+<div class="mbg" id="m-prod"><div class="modal"><div class="mh"></div><div id="m-prod-c"></div></div></div>
+  <div class="mbg" id="m-addprod">
+  <div class="modal">
+    <div class="mh"></div><h3 style="margin-bottom:14px;">Ajouter un produit</h3>
+
+    <!-- Upload photos -->
+    <div style="font-size:11px;color:var(--t2);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Photos du produit</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;" id="photo-preview-grid">
+      <label for="photo-input" style="aspect-ratio:1;background:var(--bg3);border-radius:12px;border:1.5px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);font-size:12px;gap:4px;">
+        <span style="font-size:24px;">📷</span>Ajouter
+      </label>
+    </div>
+    <input type="file" id="photo-input" accept="image/*" multiple="" style="display:none;">
+    <div style="font-size:11px;color:var(--t3);margin-bottom:13px;">Ou choisir un emoji si pas de photo :</div>
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:6px;" id="emoji-row"><div data-e="👟" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">👟</div><div data-e="👗" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">👗</div><div data-e="👜" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">👜</div><div data-e="⌚" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">⌚</div><div data-e="🎧" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">🎧</div><div data-e="📱" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">📱</div><div data-e="💻" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">💻</div><div data-e="🍅" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">🍅</div><div data-e="🥩" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">🥩</div><div data-e="🍕" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">🍕</div><div data-e="🛋" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">🛋</div><div data-e="🔧" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">🔧</div><div data-e="💄" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">💄</div><div data-e="⚽" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">⚽</div><div data-e="🚗" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">🚗</div><div data-e="🏠" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">🏠</div><div data-e="📚" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">📚</div><div data-e="🎮" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">🎮</div><div data-e="🌸" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">🌸</div><div data-e="✨" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">✨</div></div>
+    <div style="font-size:36px;text-align:center;margin-bottom:8px;" id="sel-emoji">🛍️</div>
+
+    <div class="f"><label>Nom *</label><input type="text" id="np-n" placeholder="Ex: Baskets Nike Air"></div>
+    <div class="f"><label>Description</label><textarea id="np-d" rows="2" placeholder="Décris ton produit..."></textarea></div>
+    <div class="f-row">
+      <div class="f"><label>Prix FCFA *</label><input type="number" id="np-p" placeholder="25000"></div>
+      <div class="f"><label>Prix promo</label><input type="number" id="np-promo" placeholder="Optionnel"></div>
+    </div>
+    <div class="f-row">
+      <div class="f"><label>Stock *</label><input type="number" id="np-s" placeholder="Quantité"></div>
+      <div class="f"><label>État</label><select id="np-etat"><option>Neuf</option><option>Occasion</option></select></div>
+    </div>
+    <div class="f"><label>Catégorie</label><select id="np-cat"><option value="Mode">Mode</option><option value="Alimentation">Alimentation</option><option value="Électronique">Électronique</option><option value="Maison">Maison</option><option value="Beauté">Beauté</option><option value="Sport">Sport</option><option value="Auto">Auto</option><option value="Services">Services</option><option value="Autre">Autre</option></select></div>
+    <button class="btn bg" id="btn-save-prod">Publier le produit</button>
+    <button class="btn bd">Annuler</button>
+  </div>
+</div>
+<div class="mbg" id="m-notifs"><div class="modal"><div class="mh"></div><div style="display:flex;justify-content:space-between;margin-bottom:13px;"><h3>🔔 Notifications</h3><span style="font-size:12px;color:var(--gold);cursor:pointer;">Tout lire</span></div><div id="notifs-list"></div><button class="btn bd" style="margin-top:8px;">Fermer</button></div></div>
+<div class="mbg" id="m-order"><div class="modal"><div class="mh"></div><div id="m-order-c"></div></div></div>
+<div class="mbg" id="m-avis">
+  <div class="modal"><div class="mh"></div><h3 style="margin-bottom:5px;">Laisser un avis</h3>
+    <div style="font-size:13px;color:var(--t2);margin-bottom:14px;" id="avis-pname"></div>
+    <div style="display:flex;gap:10px;padding:10px 0;margin-bottom:10px;" id="star-sel"></div>
+    <div class="f"><label>Commentaire</label><textarea id="avis-txt" rows="3" placeholder="Ton expérience..."></textarea></div>
+    <button class="btn bg">Publier</button>
+    <button class="btn bd">Annuler</button>
+  </div>
+</div>
+<div class="mbg" id="m-report">
+  <div class="modal"><div class="mh"></div><h3 style="margin-bottom:14px;">⚠️ Signaler</h3>
+    <div class="f"><label>Raison</label><select id="report-r"><option>Produit contrefait</option><option>Prix abusif</option><option>Arnaque</option><option>Contenu inapproprié</option><option>Vendeur frauduleux</option><option>Autre</option></select></div>
+    <div class="f"><label>Détails</label><textarea id="report-d" rows="3" placeholder="Décris le problème..."></textarea></div>
+    <button class="btn br">Envoyer</button>
+    <button class="btn bd">Annuler</button>
+  </div>
+</div>
+<div class="mbg" id="m-chat">
+  <div class="modal" style="height:80vh;display:flex;flex-direction:column;padding-bottom:0;">
+    <div class="mh"></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;" id="chat-hdr"></div>
+    <div id="chat-msgs" style="flex:1;overflow-y:auto;padding-bottom:10px;"></div>
+    <div class="chat-ir" style="border-radius:0 0 14px 14px;margin:0 -15px;">
+      <input class="cinp" id="chat-inp" placeholder="Écrire...">
+      <button class="csend">➤</button>
+    </div>
+  </div>
+</div>
+<div class="mbg" id="m-edit-buyer">
+  <div class="modal"><div class="mh"></div><h3 style="margin-bottom:14px;">Modifier mon profil</h3>
+    <div class="f"><label>Prénom &amp; Nom</label><input type="text" id="eb-name"></div>
+    <div class="f"><label>Téléphone</label><input type="tel" id="eb-phone"></div>
+    <div class="f"><label>Ville</label><select id="eb-city"><option value="Douala">Douala</option><option value="Yaoundé">Yaoundé</option><option value="Bafoussam">Bafoussam</option><option value="Garoua">Garoua</option><option value="Maroua">Maroua</option><option value="Bertoua">Bertoua</option><option value="Buea">Buea</option><option value="Ngaoundéré">Ngaoundéré</option><option value="Bamenda">Bamenda</option><option value="Kribi">Kribi</option></select></div>
+    <button class="btn bg">Enregistrer</button>
+    <button class="btn bd">Annuler</button>
+  </div>
+</div>
+<div class="mbg" id="m-edit-vendor">
+  <div class="modal"><div class="mh"></div><h3 style="margin-bottom:14px;">Modifier ma boutique</h3>
+    <div class="f"><label>Nom de la boutique</label><input type="text" id="ev-shop"></div>
+    <div class="f"><label>Description</label><textarea id="ev-desc" rows="2"></textarea></div>
+    <div class="f"><label>Téléphone</label><input type="tel" id="ev-phone"></div>
+    <div class="f"><label>Quartier</label><input type="text" id="ev-qtr"></div>
+    <button class="btn bg">Enregistrer</button>
+    <button class="btn bd">Annuler</button>
+  </div>
+</div>
+
+
+
+</body></html>
+------MultipartBoundary--ajK5IYmCeubClcld168GeTu8yDyjeme0zMM5TPZHp1----
+Content-Type: text/css
+Content-Transfer-Encoding: binary
+Content-Location: cid:css-2a002d65-8bfe-4e54-a0e4-2d132e3470b9@mhtml.blink
+
+@charset "utf-8";
+
+:root { --bg: #0a0a0a; --bg2: #111; --bg3: #1a1a1a; --bg4: #222; --gold: #E8A93D; --gold2: #f5c842; --gold3: rgba(232,169,61,.13); --green: #22c55e; --red: #ef4444; --blue: #3b82f6; --orange: #f97316; --text: #fff; --t2: rgba(255,255,255,.62); --t3: rgba(255,255,255,.28); --line: rgba(255,255,255,.08); --r: 14px; }
+
+* { box-sizing: border-box; margin: 0px; padding: 0px; -webkit-tap-highlight-color: transparent; }
+
+body { font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); max-width: 430px; margin: 0px auto; min-height: 100vh; overflow-x: hidden; }
+
+button, input, select, textarea { font-family: inherit; }
+
+.h { display: none !important; }
+
+.scr { display: none; min-height: 100vh; padding-bottom: 80px; animation: 0.2s ease 0s 1 normal none running fi; }
+
+.scr.on { display: block; }
+
+@keyframes fi { 
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0px); }
+}
+
+.tb { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: var(--bg); position: sticky; top: 0px; z-index: 30; border-bottom: 1px solid var(--line); }
+
+.ib { width: 36px; height: 36px; border-radius: 10px; background: var(--bg3); border: 1px solid var(--line); color: var(--text); display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; flex-shrink: 0; position: relative; }
+
+.ibdot { position: absolute; top: -3px; right: -3px; width: 9px; height: 9px; background: var(--red); border-radius: 50%; border: 2px solid var(--bg); display: none; }
+
+.ibdot.on { display: block; }
+
+.bnav { position: fixed; bottom: 0px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: var(--bg2); border-top: 1px solid var(--line); display: flex; align-items: center; padding: 6px 0 calc(6px + env(safe-area-inset-bottom)); z-index: 50; }
+
+.bn { flex: 1 1 0%; display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10px; color: var(--t3); cursor: pointer; padding: 5px 0px; background: none; border: none; }
+
+.bn .ni { font-size: 20px; }
+
+.bn.on { color: var(--gold); }
+
+.bnadd { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg,var(--gold),var(--gold2)); border: none; font-size: 24px; color: rgb(0, 0, 0); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: rgba(232, 169, 61, 0.5) 0px 4px 20px; flex-shrink: 0; font-weight: 700; }
+
+.card { background: var(--bg2); border-radius: var(--r); padding: 14px; margin-bottom: 10px; border: 1px solid var(--line); }
+
+.card-gold { background: linear-gradient(135deg, rgb(26, 21, 0), rgb(34, 28, 0)); border: 1px solid rgba(232, 169, 61, 0.3); }
+
+.btn { display: flex; align-items: center; justify-content: center; gap: 7px; border: none; border-radius: 12px; padding: 13px 16px; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%; margin-bottom: 9px; transition: opacity 0.15s; }
+
+.btn:active { opacity: 0.8; }
+
+.bg { background: linear-gradient(135deg,var(--gold),var(--gold2)); color: rgb(0, 0, 0); }
+
+.bo { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); }
+
+.bd { background: var(--bg3); color: var(--text); }
+
+.br { background: rgba(239, 68, 68, 0.15); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.3); }
+
+.bv { background: rgba(34, 197, 94, 0.15); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.3); }
+
+.bsm { width: auto; padding: 7px 13px; font-size: 12px; border-radius: 9px; margin-bottom: 0px; }
+
+.f { margin-bottom: 13px; }
+
+.f label { display: block; font-size: 11px; color: var(--t2); margin-bottom: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.f input, .f select, .f textarea { width: 100%; background: var(--bg3); border: 1.5px solid var(--line); border-radius: 11px; padding: 12px 14px; color: var(--text); font-size: 14px; outline: none; transition: border-color 0.2s; }
+
+.f input:focus, .f select:focus, .f textarea:focus { border-color: var(--gold); }
+
+.f input::placeholder, .f textarea::placeholder { color: var(--t3); }
+
+.f select option { background: var(--bg3); }
+
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.pill { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+
+.pg { background: rgba(34, 197, 94, 0.12); color: var(--green); }
+
+.py { background: rgba(232, 169, 61, 0.15); color: var(--gold); }
+
+.pr { background: rgba(239, 68, 68, 0.12); color: var(--red); }
+
+.pb { background: rgba(59, 130, 246, 0.12); color: var(--blue); }
+
+.pp { background: var(--bg3); color: var(--t2); }
+
+.po { background: rgba(249, 115, 22, 0.12); color: var(--orange); }
+
+.div { height: 1px; background: var(--line); margin: 13px 0px; }
+
+.chips { display: flex; gap: 7px; padding: 10px 14px 4px; overflow-x: auto; scrollbar-width: none; }
+
+.chips::-webkit-scrollbar { display: none; }
+
+.chip { flex: 0 0 auto; padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg2); font-size: 12.5px; font-weight: 600; color: var(--t2); white-space: nowrap; cursor: pointer; }
+
+.chip.on { background: var(--gold); border-color: var(--gold); color: rgb(0, 0, 0); }
+
+.mbg { position: fixed; inset: 0px; background: rgba(0, 0, 0, 0.75); z-index: 100; display: none; align-items: flex-end; justify-content: center; }
+
+.mbg.on { display: flex; }
+
+.modal { background: var(--bg2); width: 100%; max-width: 430px; border-radius: 22px 22px 0px 0px; max-height: 92vh; overflow-y: auto; padding: 18px 15px calc(22px + env(safe-area-inset-bottom)); animation: 0.22s ease 0s 1 normal none running su; }
+
+@keyframes su { 
+  0% { transform: translateY(40px); opacity: 0; }
+  100% { transform: translateY(0px); opacity: 1; }
+}
+
+.mh { width: 36px; height: 4px; background: var(--line); border-radius: 99px; margin: 0px auto 15px; }
+
+#toast { position: fixed; top: 16px; left: 50%; transform: translateX(-50%) translateY(-10px); z-index: 999; background: var(--bg3); border: 1px solid var(--line); color: var(--text); padding: 11px 20px; border-radius: 14px; font-size: 13px; font-weight: 600; display: none; max-width: 86%; text-align: center; box-shadow: rgba(0, 0, 0, 0.6) 0px 8px 32px; transition: transform 0.3s; }
+
+#toast.show { transform: translateX(-50%) translateY(0px); }
+
+.sinp { width: 100%; background: var(--bg3); border: 1.5px solid var(--line); border-radius: 13px; padding: 12px 14px 12px 42px; color: var(--text); font-size: 14px; outline: none; }
+
+.sinp:focus { border-color: var(--gold); }
+
+.sinp::placeholder { color: var(--t3); }
+
+.swrap { position: relative; margin-bottom: 10px; }
+
+.sico { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 16px; color: var(--t2); }
+
+.pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; padding: 6px 12px 18px; }
+
+.pc { background: var(--bg2); border-radius: 14px; overflow: hidden; border: 1px solid var(--line); cursor: pointer; transition: transform 0.15s; }
+
+.pc:active { transform: scale(0.97); }
+
+.pthumb { height: 110px; display: flex; align-items: center; justify-content: center; font-size: 40px; background: var(--bg3); position: relative; }
+
+.ctag { position: absolute; bottom: 5px; left: 5px; background: rgba(0, 0, 0, 0.7); color: var(--gold); font-size: 9px; font-weight: 700; padding: 3px 7px; border-radius: 6px; }
+
+.ccert { position: absolute; top: 5px; right: 5px; background: rgba(34, 197, 94, 0.9); color: rgb(255, 255, 255); font-size: 8px; font-weight: 800; padding: 3px 7px; border-radius: 999px; }
+
+.ptag { position: absolute; top: 5px; left: 5px; font-size: 8px; font-weight: 800; padding: 3px 7px; border-radius: 999px; }
+
+.pbody { padding: 9px 10px 11px; }
+
+.chat-msg { display: flex; flex-direction: column; margin-bottom: 12px; }
+
+.chat-msg.me { align-items: flex-end; }
+
+.them .chat-bubble { background: var(--bg3); border-radius: 4px 14px 14px; }
+
+.me .chat-bubble { background: linear-gradient(135deg,var(--gold),var(--gold2)); color: rgb(0, 0, 0); border-radius: 14px 4px 14px 14px; }
+
+.chat-bubble { max-width: 78%; padding: 10px 13px; border-radius: 14px; font-size: 13.5px; line-height: 1.45; }
+
+.chat-time { font-size: 10px; color: var(--t3); margin-top: 3px; padding: 0px 4px; }
+
+.chat-ir { display: flex; gap: 8px; padding: 10px 13px; background: var(--bg2); border-top: 1px solid var(--line); position: sticky; bottom: 0px; }
+
+.cinp { flex: 1 1 0%; background: var(--bg3); border: 1px solid var(--line); border-radius: 22px; padding: 10px 14px; color: var(--text); font-size: 14px; outline: none; }
+
+.csend { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg,var(--gold),var(--gold2)); border: none; color: rgb(0, 0, 0); font-size: 17px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+
+.tog { position: relative; width: 46px; height: 25px; flex-shrink: 0; }
+
+.tog input { opacity: 0; width: 0px; height: 0px; }
+
+.tsl { position: absolute; inset: 0px; background: var(--bg4); border-radius: 999px; cursor: pointer; transition: 0.3s; border: 1px solid var(--line); }
+
+.tsl::before { content: ""; position: absolute; width: 19px; height: 19px; left: 3px; top: 3px; background: rgb(255, 255, 255); border-radius: 50%; transition: 0.3s; }
+
+.tog input:checked + .tsl { background: var(--green); border-color: var(--green); }
+
+.tog input:checked + .tsl::before { transform: translateX(21px); }
+
+.vhero { background: linear-gradient(160deg, rgb(17, 17, 17), rgb(26, 26, 0)); padding: 18px 14px 16px; border-bottom: 1px solid var(--line); }
+
+.sgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 12px; }
+
+.scard { background: var(--bg2); border-radius: 12px; padding: 12px; border: 1px solid var(--line); }
+
+.snum { font-size: 20px; font-weight: 800; }
+
+.slbl { font-size: 10.5px; color: var(--t2); margin-top: 2px; }
+
+.qa { display: flex; justify-content: space-around; padding: 10px 0px; }
+
+.qai { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
+
+.qaico { width: 52px; height: 52px; border-radius: 14px; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1px solid var(--line); position: relative; }
+
+.ava { width: 72px; height: 72px; border-radius: 50%; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 28px; border: 3px solid var(--gold); overflow: hidden; flex-shrink: 0; }
+
+.li { display: flex; align-items: center; gap: 12px; padding: 12px 0px; border-bottom: 1px solid var(--line); cursor: pointer; }
+
+.li-ico { width: 44px; height: 44px; border-radius: 12px; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+
+.pbar { background: var(--bg3); border-radius: 999px; height: 6px; overflow: hidden; margin-top: 4px; }
+
+.pbar-fill { height: 100%; background: linear-gradient(90deg,var(--gold),var(--gold2)); border-radius: 999px; }
+
+.flash-timer { font-size: 22px; font-weight: 800; color: var(--red); font-variant-numeric: tabular-nums; }
+
+.loader { text-align: center; padding: 40px; color: var(--t2); }
+
+.spin { display: inline-block; animation: 1s linear 0s infinite normal none running spin; }
+
+@keyframes spin { 
+  100% { transform: rotate(360deg); }
+}
+------MultipartBoundary--ajK5IYmCeubClcld168GeTu8yDyjeme0zMM5TPZHp1------
