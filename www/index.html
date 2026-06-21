@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ISMArket 2.0</title>
+<meta name="theme-color" content="#0a0a0a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ISMArket">
+<style>
+:root{--bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bg4:#222;--gold:#E8A93D;--gold2:#f5c842;--gold3:rgba(232,169,61,.13);--green:#22c55e;--red:#ef4444;--blue:#3b82f6;--orange:#f97316;--text:#fff;--t2:rgba(255,255,255,.62);--t3:rgba(255,255,255,.28);--line:rgba(255,255,255,.08);--r:14px;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);max-width:430px;margin:0 auto;min-height:100vh;overflow-x:hidden;}
+button,input,select,textarea{font-family:inherit;}
+.h{display:none!important;}
+.scr{display:none;min-height:100vh;padding-bottom:80px;animation:fi .2s ease;}
+.scr.on{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.tb{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--bg);position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);}
+.ib{width:36px;height:36px;border-radius:10px;background:var(--bg3);border:1px solid var(--line);color:var(--text);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;flex-shrink:0;position:relative;}
+.ibdot{position:absolute;top:-3px;right:-3px;width:9px;height:9px;background:var(--red);border-radius:50%;border:2px solid var(--bg);display:none;}
+.ibdot.on{display:block;}
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:var(--bg2);border-top:1px solid var(--line);display:flex;align-items:center;padding:6px 0 calc(6px + env(safe-area-inset-bottom));z-index:50;}
+.bn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;color:var(--t3);cursor:pointer;padding:5px 0;background:none;border:none;}
+.bn .ni{font-size:20px;}.bn.on{color:var(--gold);}
+.bnadd{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;font-size:24px;color:#000;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(232,169,61,.5);flex-shrink:0;font-weight:700;}
+.card{background:var(--bg2);border-radius:var(--r);padding:14px;margin-bottom:10px;border:1px solid var(--line);}
+.card-gold{background:linear-gradient(135deg,#1a1500,#221c00);border:1px solid rgba(232,169,61,.3);}
+.btn{display:flex;align-items:center;justify-content:center;gap:7px;border:none;border-radius:12px;padding:13px 16px;font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-bottom:9px;transition:opacity .15s;}
+.btn:active{opacity:.8;}
+.bg{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;}
+.bo{background:transparent;border:1.5px solid var(--gold);color:var(--gold);}
+.bd{background:var(--bg3);color:var(--text);}
+.br{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3);}
+.bv{background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3);}
+.bsm{width:auto;padding:7px 13px;font-size:12px;border-radius:9px;margin-bottom:0;}
+.f{margin-bottom:13px;}.f label{display:block;font-size:11px;color:var(--t2);margin-bottom:5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+.f input,.f select,.f textarea{width:100%;background:var(--bg3);border:1.5px solid var(--line);border-radius:11px;padding:12px 14px;color:var(--text);font-size:14px;outline:none;transition:border-color .2s;}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--gold);}
+.f input::placeholder,.f textarea::placeholder{color:var(--t3);}
+.f select option{background:var(--bg3);}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;}
+.pg{background:rgba(34,197,94,.12);color:var(--green);}.py{background:rgba(232,169,61,.15);color:var(--gold);}
+.pr{background:rgba(239,68,68,.12);color:var(--red);}.pb{background:rgba(59,130,246,.12);color:var(--blue);}
+.pp{background:var(--bg3);color:var(--t2);}.po{background:rgba(249,115,22,.12);color:var(--orange);}
+.div{height:1px;background:var(--line);margin:13px 0;}
+.chips{display:flex;gap:7px;padding:10px 14px 4px;overflow-x:auto;scrollbar-width:none;}.chips::-webkit-scrollbar{display:none;}
+.chip{flex:0 0 auto;padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg2);font-size:12.5px;font-weight:600;color:var(--t2);white-space:nowrap;cursor:pointer;}
+.chip.on{background:var(--gold);border-color:var(--gold);color:#000;}
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;display:none;align-items:flex-end;justify-content:center;}
+.mbg.on{display:flex;}
+.modal{background:var(--bg2);width:100%;max-width:430px;border-radius:22px 22px 0 0;max-height:92vh;overflow-y:auto;padding:18px 15px calc(22px + env(safe-area-inset-bottom));animation:su .22s ease;}
+@keyframes su{from{transform:translateY(40px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.mh{width:36px;height:4px;background:var(--line);border-radius:99px;margin:0 auto 15px;}
+#toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-10px);z-index:999;background:var(--bg3);border:1px solid var(--line);color:var(--text);padding:11px 20px;border-radius:14px;font-size:13px;font-weight:600;display:none;max-width:86%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.6);transition:transform .3s;}
+#toast.show{transform:translateX(-50%) translateY(0);}
+.sinp{width:100%;background:var(--bg3);border:1.5px solid var(--line);border-radius:13px;padding:12px 14px 12px 42px;color:var(--text);font-size:14px;outline:none;}
+.sinp:focus{border-color:var(--gold);}.sinp::placeholder{color:var(--t3);}
+.swrap{position:relative;margin-bottom:10px;}.sico{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--t2);}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:6px 12px 18px;}
+.pc{background:var(--bg2);border-radius:14px;overflow:hidden;border:1px solid var(--line);cursor:pointer;transition:transform .15s;}
+.pc:active{transform:scale(.97);}
+.pthumb{height:110px;display:flex;align-items:center;justify-content:center;font-size:40px;background:var(--bg3);position:relative;}
+.ctag{position:absolute;bottom:5px;left:5px;background:rgba(0,0,0,.7);color:var(--gold);font-size:9px;font-weight:700;padding:3px 7px;border-radius:6px;}
+.ccert{position:absolute;top:5px;right:5px;background:rgba(34,197,94,.9);color:#fff;font-size:8px;font-weight:800;padding:3px 7px;border-radius:999px;}
+.ptag{position:absolute;top:5px;left:5px;font-size:8px;font-weight:800;padding:3px 7px;border-radius:999px;}
+.pbody{padding:9px 10px 11px;}
+.chat-msg{display:flex;flex-direction:column;margin-bottom:12px;}
+.chat-msg.me{align-items:flex-end;}
+.them .chat-bubble{background:var(--bg3);border-radius:4px 14px 14px 14px;}
+.me .chat-bubble{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border-radius:14px 4px 14px 14px;}
+.chat-bubble{max-width:78%;padding:10px 13px;border-radius:14px;font-size:13.5px;line-height:1.45;}
+.chat-time{font-size:10px;color:var(--t3);margin-top:3px;padding:0 4px;}
+.chat-ir{display:flex;gap:8px;padding:10px 13px;background:var(--bg2);border-top:1px solid var(--line);position:sticky;bottom:0;}
+.cinp{flex:1;background:var(--bg3);border:1px solid var(--line);border-radius:22px;padding:10px 14px;color:var(--text);font-size:14px;outline:none;}
+.csend{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#000;font-size:17px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.tog{position:relative;width:46px;height:25px;flex-shrink:0;}
+.tog input{opacity:0;width:0;height:0;}
+.tsl{position:absolute;inset:0;background:var(--bg4);border-radius:999px;cursor:pointer;transition:.3s;border:1px solid var(--line);}
+.tsl::before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.3s;}
+.tog input:checked+.tsl{background:var(--green);border-color:var(--green);}
+.tog input:checked+.tsl::before{transform:translateX(21px);}
+.vhero{background:linear-gradient(160deg,#111,#1a1a00);padding:18px 14px 16px;border-bottom:1px solid var(--line);}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px;}
+.scard{background:var(--bg2);border-radius:12px;padding:12px;border:1px solid var(--line);}
+.snum{font-size:20px;font-weight:800;}.slbl{font-size:10.5px;color:var(--t2);margin-top:2px;}
+.qa{display:flex;justify-content:space-around;padding:10px 0;}
+.qai{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;}
+.qaico{width:52px;height:52px;border-radius:14px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid var(--line);position:relative;}
+.ava{width:72px;height:72px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:28px;border:3px solid var(--gold);overflow:hidden;flex-shrink:0;}
+.li{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer;}
+.li-ico{width:44px;height:44px;border-radius:12px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.pbar{background:var(--bg3);border-radius:999px;height:6px;overflow:hidden;margin-top:4px;}
+.pbar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:999px;}
+.flash-timer{font-size:22px;font-weight:800;color:var(--red);font-variant-numeric:tabular-nums;}
+.loader{text-align:center;padding:40px;color:var(--t2);}
+.spin{display:inline-block;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+<div id="toast"></div>
+
+<!-- HOME -->
+<div class="scr on" id="s-home">
+  <div class="tb"><div id="logo-home"></div>
+    <div style="display:flex;gap:7px;">
+      <div class="ib" onclick="openModal('m-notifs');renderNotifs()">🔔<span class="ibdot" id="notif-dot"></span></div>
+      <div class="ib" onclick="openBuyerAcc()"><span id="buyer-ava-h">👤</span></div>
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,#1a0a00,#2a1400);border:1px solid rgba(249,115,22,.3);border-radius:14px;padding:13px 14px;margin:10px 12px;display:flex;align-items:center;gap:12px;">
+    <span style="font-size:28px;">🎁</span>
+    <div><div style="font-size:13px;font-weight:700;color:var(--orange);">2 mois GRATUITS pour les vendeurs !</div><div style="font-size:11.5px;color:var(--t2);">Ouvre ta boutique maintenant →</div></div>
+  </div>
+  <div style="display:flex;gap:8px;padding:0 12px 10px;" id="counters"></div>
+  <div style="padding:4px 12px 6px;display:flex;gap:8px;">
+    <div class="swrap" style="flex:1;margin-bottom:0;"><span class="sico">🔍</span><input class="sinp" id="home-search" placeholder="Rechercher un produit..." oninput="renderGrid()"></div>
+    <button style="width:44px;height:44px;border-radius:50%;background:var(--bg3);border:1px solid var(--line);color:var(--t2);font-size:18px;cursor:pointer;" onclick="toggleVoice()">🎤</button>
+  </div>
+  <div class="chips" id="cat-chips"></div>
+  <div class="chips" id="city-chips" style="padding-top:2px;"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px 4px;">
+    <span style="font-size:15px;font-weight:700;" id="grid-title">Tous les produits</span>
+    <select style="background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:5px 10px;color:var(--text);font-size:12px;outline:none;" id="sort-sel" onchange="renderGrid()">
+      <option value="recent">Plus récents</option><option value="popular">Popularité</option>
+      <option value="price-asc">Prix ↑</option><option value="price-desc">Prix ↓</option><option value="rating">Meilleures notes</option>
+    </select>
+  </div>
+  <div class="pgrid" id="home-grid"></div>
+</div>
+
+<!-- RECHERCHE -->
+<div class="scr" id="s-search">
+  <div class="tb">
+    <button class="ib" onclick="goHome()" style="background:none;border:none;font-size:20px;">←</button>
+    <span style="font-size:15px;font-weight:700;">Recherche avancée</span>
+    <div style="width:36px;"></div>
+  </div>
+  <div style="padding:12px 12px 6px;">
+    <div class="swrap"><span class="sico">🔍</span><input class="sinp" id="search-inp" placeholder="Que cherches-tu ?" oninput="doSearch()"></div>
+    <div class="f-row">
+      <div class="f" style="margin-bottom:8px;"><label>Prix min</label><input type="number" id="f-pmin" placeholder="0" oninput="doSearch()"></div>
+      <div class="f" style="margin-bottom:8px;"><label>Prix max</label><input type="number" id="f-pmax" placeholder="∞" oninput="doSearch()"></div>
+    </div>
+    <div class="f-row">
+      <div class="f" style="margin-bottom:4px;"><label>Ville</label><select id="f-city" onchange="doSearch()"><option value="">Toutes</option></select></div>
+      <div class="f" style="margin-bottom:4px;"><label>Catégorie</label><select id="f-cat" onchange="doSearch()"><option value="">Toutes</option></select></div>
+    </div>
+  </div>
+  <div style="padding:4px 14px 6px;display:flex;justify-content:space-between;">
+    <span style="font-size:13px;color:var(--t2);" id="search-count"></span>
+  </div>
+  <div class="pgrid" id="search-grid"></div>
+</div>
+
+<!-- AUTH ACHETEUR -->
+<div class="scr" id="s-bauth">
+  <div class="tb"><button class="ib" onclick="goHome()" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">Mon compte</span><div style="width:36px;"></div></div>
+  <div style="text-align:center;padding:24px 18px 20px;background:linear-gradient(160deg,#111,#0a0a0a);border-bottom:1px solid var(--line);">
+    <div id="logo-bauth" style="margin-bottom:10px;"></div>
+    <div style="font-size:13px;color:var(--t2);">Rejoins des milliers d'acheteurs</div>
+  </div>
+  <div style="padding:18px 14px;">
+    <div style="display:flex;gap:7px;margin-bottom:16px;">
+      <button class="btn bg bsm" id="bt-login" style="flex:1;padding:10px;" onclick="bTab('login')">Se connecter</button>
+      <button class="btn bd bsm" id="bt-reg" style="flex:1;padding:10px;" onclick="bTab('reg')">S'inscrire</button>
+    </div>
+    <div id="bf-login">
+      <div class="f"><label>Email</label><input type="email" id="bl-email" placeholder="toi@exemple.com"></div>
+      <div class="f"><label>Mot de passe</label><input type="password" id="bl-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doBLogin()"></div>
+      <button class="btn bg" onclick="doBLogin()">Se connecter</button>
+    </div>
+    <div id="bf-reg" class="h">
+      <div class="f"><label>Prénom & Nom</label><input type="text" id="br-name" placeholder="Marie Dupont"></div>
+      <div class="f"><label>Téléphone</label><input type="tel" id="br-phone" placeholder="6XX XXX XXX"></div>
+      <div class="f"><label>Email</label><input type="email" id="br-email" placeholder="toi@exemple.com"></div>
+      <div class="f"><label>Mot de passe</label><input type="password" id="br-pass" placeholder="Min. 6 caractères"></div>
+      <div class="f"><label>Ville</label><select id="br-city"></select></div>
+      <button class="btn bg" onclick="doBRegister()">Créer mon compte gratuit</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROFIL ACHETEUR -->
+<div class="scr" id="s-bprofil">
+  <div class="tb"><button class="ib" onclick="goHome()" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">Mon profil</span><div class="ib" onclick="openEditBuyer()">✏️</div></div>
+  <div style="padding:18px 14px 0;text-align:center;">
+    <div class="ava" style="margin:0 auto 12px;" id="bp-ava">👤</div>
+    <div style="font-size:19px;font-weight:800;" id="bp-name">—</div>
+    <div style="font-size:13px;color:var(--t2);margin-top:3px;" id="bp-meta">—</div>
+  </div>
+  <div style="padding:14px;"><div class="div"></div><div id="bp-stats" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;"></div><div id="bp-menu"></div></div>
+</div>
+
+<!-- FAVORIS -->
+<div class="scr" id="s-favs">
+  <div class="tb"><button class="ib" onclick="goHome()" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">❤️ Mes favoris</span><div style="width:36px;"></div></div>
+  <div class="pgrid" id="favs-grid"></div>
+</div>
+
+<!-- AUTH VENDEUR -->
+<div class="scr" id="s-vauth">
+  <div class="tb"><button class="ib" onclick="goHome()" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">Espace Vendeur</span><div style="width:36px;"></div></div>
+  <div style="text-align:center;padding:24px 18px 20px;background:linear-gradient(160deg,#111,#1a1a00);border-bottom:1px solid var(--line);">
+    <div id="logo-vauth" style="margin-bottom:10px;"></div>
+    <div style="font-size:13px;color:var(--t2);">Vends à ta ville, vends à tout le pays.</div>
+  </div>
+  <div style="padding:18px 14px;">
+    <div style="display:flex;gap:7px;margin-bottom:16px;">
+      <button class="btn bg bsm" id="vt-login" style="flex:1;padding:10px;" onclick="vTab('login')">Se connecter</button>
+      <button class="btn bd bsm" id="vt-reg" style="flex:1;padding:10px;" onclick="vTab('reg')">Créer ma boutique</button>
+    </div>
+    <div id="vf-login">
+      <div class="f"><label>Email</label><input type="email" id="vl-e" placeholder="toi@exemple.com"></div>
+      <div class="f"><label>Mot de passe</label><input type="password" id="vl-p" placeholder="••••••••" onkeydown="if(event.key==='Enter')doVLogin()"></div>
+      <button class="btn bg" onclick="doVLogin()">Entrer dans ma boutique</button>
+    </div>
+    <div id="vf-reg" class="h">
+      <div class="f"><label>Nom de la boutique *</label><input type="text" id="vr-shop" placeholder="Ex: Chez Maman Rosa"></div>
+      <div class="f"><label>Description</label><textarea id="vr-desc" rows="2" placeholder="Décris ta boutique..."></textarea></div>
+      <div class="f-row">
+        <div class="f"><label>Téléphone *</label><input type="tel" id="vr-phone" placeholder="6XX XXX XXX"></div>
+        <div class="f"><label>Ville *</label><select id="vr-city"></select></div>
+      </div>
+      <div class="f"><label>Quartier *</label><input type="text" id="vr-qtr" placeholder="Ex: Akwa, Bastos..."></div>
+      <div class="f"><label>Email *</label><input type="email" id="vr-email" placeholder="toi@exemple.com"></div>
+      <div class="f"><label>Mot de passe *</label><input type="password" id="vr-pass" placeholder="Min. 6 caractères"></div>
+      <div class="card-gold" style="border-radius:12px;padding:12px;margin-bottom:13px;">
+        <div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:4px;">🎉 OFFRE DE LANCEMENT</div>
+        <div style="font-size:13px;color:var(--t2);line-height:1.5;">✅ 60 jours GRATUITS · Boutique certifiée après validation<br>Ensuite : <strong style="color:var(--gold);">5 000 FCFA/mois</strong></div>
+      </div>
+      <button class="btn bg" onclick="doVRegister()">Envoyer ma demande</button>
+    </div>
+  </div>
+</div>
+
+<!-- VENDOR DASH -->
+<div class="scr" id="s-vdash">
+  <div class="vhero">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;">
+      <div id="logo-vdash"></div>
+      <div style="display:flex;gap:7px;">
+        <div class="ib" onclick="gvt('chat')">💬<span class="ibdot" id="chat-dot"></span></div>
+        <div class="ib" onclick="openModal('m-notifs');renderNotifs()">🔔</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:13px;">
+      <div class="ava" id="v-ava">🏪</div>
+      <div>
+        <div style="font-size:18px;font-weight:800;" id="v-shop">Ma boutique</div>
+        <div style="font-size:12px;color:var(--t2);" id="v-loc">—</div>
+        <div style="margin-top:4px;" id="v-badges"></div>
+      </div>
+    </div>
+    <div class="card-gold" style="border-radius:12px;padding:13px;" id="v-trial"></div>
+  </div>
+  <div style="padding:13px 14px 0;">
+    <div style="font-size:14px;font-weight:700;margin-bottom:9px;">📊 Statistiques</div>
+    <div class="sgrid" id="v-stats"></div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Accès rapides</div>
+    <div class="qa">
+      <div class="qai" onclick="gvt('prods')"><div class="qaico">🛍️</div><div style="font-size:10px;color:var(--t2);font-weight:600;">Produits</div></div>
+      <div class="qai" onclick="gvt('cmds')"><div class="qaico">📦</div><div style="font-size:10px;color:var(--t2);font-weight:600;">Commandes</div></div>
+      <div class="qai" onclick="gvt('stats')"><div class="qaico">📈</div><div style="font-size:10px;color:var(--t2);font-weight:600;">Stats</div></div>
+      <div class="qai" onclick="gvt('chat')"><div class="qaico" style="position:relative;">💬<span class="ibdot" id="chat-dot2"></span></div><div style="font-size:10px;color:var(--t2);font-weight:600;">Support</div></div>
+      <div class="qai" onclick="gvt('profil')"><div class="qaico">👤</div><div style="font-size:10px;color:var(--t2);font-weight:600;">Profil</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUITS VENDEUR -->
+<div class="scr" id="s-vprods">
+  <div class="tb"><button class="ib" onclick="gvt('dash')" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">Mes produits</span><button class="ib bg" onclick="openModal('m-addprod')" style="font-size:20px;border:none;">+</button></div>
+  <div style="padding:11px 13px;">
+    <div class="swrap"><span class="sico">🔍</span><input class="sinp" id="vps" placeholder="Rechercher..." oninput="renderVP()"></div>
+    <div class="chips" style="padding:0 0 10px;" id="vpf"></div>
+    <div id="vp-list"></div>
+  </div>
+</div>
+
+<!-- COMMANDES -->
+<div class="scr" id="s-vcmds">
+  <div class="tb"><button class="ib" onclick="gvt('dash')" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">Commandes</span><div style="width:36px;"></div></div>
+  <div style="padding:11px 13px;"><div class="chips" style="padding:0 0 10px;" id="vcf"></div><div id="vcmds-list"></div></div>
+</div>
+
+<!-- STATS VENDEUR -->
+<div class="scr" id="s-vstats">
+  <div class="tb"><button class="ib" onclick="gvt('dash')" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">📈 Statistiques</span><div style="width:36px;"></div></div>
+  <div style="padding:13px 14px;" id="vstats-c"></div>
+</div>
+
+<!-- CHAT VENDEUR -->
+<div class="scr" id="s-vchat">
+  <div class="tb"><button class="ib" onclick="gvt('dash')" style="background:none;border:none;font-size:20px;">←</button><div><div style="font-size:15px;font-weight:700;">Support ISMArket</div><div style="font-size:11px;color:var(--green);">● En ligne</div></div><div style="width:36px;"></div></div>
+  <div id="vchat-msgs" style="padding:13px;padding-bottom:80px;min-height:60vh;"></div>
+  <div class="chat-ir"><input class="cinp" id="vchat-inp" placeholder="Écrire un message..." onkeydown="if(event.key==='Enter')sendVMsg()"><button class="csend" onclick="sendVMsg()">➤</button></div>
+</div>
+
+<!-- PROFIL VENDEUR -->
+<div class="scr" id="s-vprofil">
+  <div class="tb"><button class="ib" onclick="gvt('dash')" style="background:none;border:none;font-size:20px;">←</button><span style="font-size:15px;font-weight:700;">Ma boutique</span><div class="ib" onclick="openEditVendor()">✏️</div></div>
+  <div style="padding:16px 14px;" id="vprofil-c"></div>
+</div>
+
+<!-- ADMIN -->
+<div class="scr" id="s-admin">
+  <div class="tb"><div id="logo-admin"></div><div class="ib" onclick="openModal('m-notifs')">🔔</div></div>
+  <div style="padding:13px 14px;">
+    <div id="adm-lock">
+      <div style="text-align:center;padding:28px 0 16px;"><div style="font-size:50px;margin-bottom:12px;">🔐</div><div style="font-size:17px;font-weight:700;margin-bottom:5px;">Administration</div><div style="font-size:13px;color:var(--t2);">Accès réservé</div></div>
+      <div class="f"><label>Mot de passe admin</label><input type="password" id="adm-pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')doAdmLogin()"></div>
+      <button class="btn bg" onclick="doAdmLogin()">Accéder</button>
+      <button class="btn bd" onclick="goHome()">Retour à l'accueil</button>
+    </div>
+    <div id="adm-panel" class="h">
+      <div style="font-size:11px;color:var(--t2);letter-spacing:.07em;text-transform:uppercase;margin-bottom:12px;">Tableau de bord ISMArket 2.0</div>
+      <div class="sgrid" id="adm-stats"></div>
+      <div class="chips" style="padding:0 0 12px;" id="adm-tabs"></div>
+      <div id="adm-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN CHAT -->
+<div class="scr" id="s-admchat">
+  <div class="tb"><button class="ib" onclick="showScr('s-admin');renderAdmTab(admTab)" style="background:none;border:none;font-size:20px;">←</button><div><div style="font-size:15px;font-weight:700;" id="adc-title">Chat</div><div style="font-size:11px;color:var(--t2);" id="adc-sub"></div></div><div style="width:36px;"></div></div>
+  <div id="adc-msgs" style="padding:13px;padding-bottom:80px;min-height:60vh;"></div>
+  <div class="chat-ir"><input class="cinp" id="adc-inp" placeholder="Répondre..." onkeydown="if(event.key==='Enter')sendAdmMsg()"><button class="csend" onclick="sendAdmMsg()">➤</button></div>
+</div>
+
+<!-- NAVBARS -->
+<div class="bnav" id="nav-buyer">
+  <button class="bn on" onclick="goHome()"><div class="ni">🏠</div>Accueil</button>
+  <button class="bn" onclick="goSearch()"><div class="ni">🔍</div>Recherche</button>
+  <button class="bnadd" onclick="goVend()">🛍️</button>
+  <button class="bn" onclick="goFavs()"><div class="ni">❤️</div>Favoris</button>
+  <button class="bn" onclick="openBuyerAcc()"><div class="ni">👤</div>Profil</button>
+</div>
+<div class="bnav h" id="nav-vendor">
+  <button class="bn on" onclick="gvt('dash')"><div class="ni">🏠</div>Accueil</button>
+  <button class="bn" onclick="gvt('prods')"><div class="ni">🛍️</div>Produits</button>
+  <button class="bnadd" onclick="openModal('m-addprod')">+</button>
+  <button class="bn" onclick="gvt('cmds')"><div class="ni">📦</div>Commandes</button>
+  <button class="bn" onclick="gvt('profil')"><div class="ni">👤</div>Profil</button>
+</div>
+
+<!-- MODALS -->
+<div class="mbg" id="m-prod"><div class="modal"><div class="mh"></div><div id="m-prod-c"></div></div></div>
+  <div class="mbg" id="m-addprod">
+  <div class="modal">
+    <div class="mh"></div><h3 style="margin-bottom:14px;">Ajouter un produit</h3>
+
+    <!-- Upload photos -->
+    <div style="font-size:11px;color:var(--t2);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Photos du produit</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;" id="photo-preview-grid">
+      <label for="photo-input" style="aspect-ratio:1;background:var(--bg3);border-radius:12px;border:1.5px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);font-size:12px;gap:4px;">
+        <span style="font-size:24px;">📷</span>Ajouter
+      </label>
+    </div>
+    <input type="file" id="photo-input" accept="image/*" multiple style="display:none;" onchange="previewPhotos(event)">
+    <div style="font-size:11px;color:var(--t3);margin-bottom:13px;">Ou choisir un emoji si pas de photo :</div>
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:6px;" id="emoji-row"></div>
+    <div style="font-size:36px;text-align:center;margin-bottom:8px;" id="sel-emoji">🛍️</div>
+
+    <div class="f"><label>Nom *</label><input type="text" id="np-n" placeholder="Ex: Baskets Nike Air"></div>
+    <div class="f"><label>Description</label><textarea id="np-d" rows="2" placeholder="Décris ton produit..."></textarea></div>
+    <div class="f-row">
+      <div class="f"><label>Prix FCFA *</label><input type="number" id="np-p" placeholder="25000"></div>
+      <div class="f"><label>Prix promo</label><input type="number" id="np-promo" placeholder="Optionnel"></div>
+    </div>
+    <div class="f-row">
+      <div class="f"><label>Stock *</label><input type="number" id="np-s" placeholder="Quantité"></div>
+      <div class="f"><label>État</label><select id="np-etat"><option>Neuf</option><option>Occasion</option></select></div>
+    </div>
+    <div class="f"><label>Catégorie</label><select id="np-cat"></select></div>
+    <button class="btn bg" id="btn-save-prod" onclick="saveProduct()">Publier le produit</button>
+    <button class="btn bd" onclick="closeModal('m-addprod')">Annuler</button>
+  </div>
+</div>
+<div class="mbg" id="m-notifs"><div class="modal"><div class="mh"></div><div style="display:flex;justify-content:space-between;margin-bottom:13px;"><h3>🔔 Notifications</h3><span style="font-size:12px;color:var(--gold);cursor:pointer;" onclick="markAllRead()">Tout lire</span></div><div id="notifs-list"></div><button class="btn bd" onclick="closeModal('m-notifs')" style="margin-top:8px;">Fermer</button></div></div>
+<div class="mbg" id="m-order"><div class="modal"><div class="mh"></div><div id="m-order-c"></div></div></div>
+<div class="mbg" id="m-avis">
+  <div class="modal"><div class="mh"></div><h3 style="margin-bottom:5px;">Laisser un avis</h3>
+    <div style="font-size:13px;color:var(--t2);margin-bottom:14px;" id="avis-pname"></div>
+    <div style="display:flex;gap:10px;padding:10px 0;margin-bottom:10px;" id="star-sel"></div>
+    <div class="f"><label>Commentaire</label><textarea id="avis-txt" rows="3" placeholder="Ton expérience..."></textarea></div>
+    <button class="btn bg" onclick="submitAvis()">Publier</button>
+    <button class="btn bd" onclick="closeModal('m-avis')">Annuler</button>
+  </div>
+</div>
+<div class="mbg" id="m-report">
+  <div class="modal"><div class="mh"></div><h3 style="margin-bottom:14px;">⚠️ Signaler</h3>
+    <div class="f"><label>Raison</label><select id="report-r"><option>Produit contrefait</option><option>Prix abusif</option><option>Arnaque</option><option>Contenu inapproprié</option><option>Vendeur frauduleux</option><option>Autre</option></select></div>
+    <div class="f"><label>Détails</label><textarea id="report-d" rows="3" placeholder="Décris le problème..."></textarea></div>
+    <button class="btn br" onclick="submitReport()">Envoyer</button>
+    <button class="btn bd" onclick="closeModal('m-report')">Annuler</button>
+  </div>
+</div>
+<div class="mbg" id="m-chat">
+  <div class="modal" style="height:80vh;display:flex;flex-direction:column;padding-bottom:0;">
+    <div class="mh"></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;" id="chat-hdr"></div>
+    <div id="chat-msgs" style="flex:1;overflow-y:auto;padding-bottom:10px;"></div>
+    <div class="chat-ir" style="border-radius:0 0 14px 14px;margin:0 -15px;">
+      <input class="cinp" id="chat-inp" placeholder="Écrire..." onkeydown="if(event.key==='Enter')sendBMsg()">
+      <button class="csend" onclick="sendBMsg()">➤</button>
+    </div>
+  </div>
+</div>
+<div class="mbg" id="m-edit-buyer">
+  <div class="modal"><div class="mh"></div><h3 style="margin-bottom:14px;">Modifier mon profil</h3>
+    <div class="f"><label>Prénom & Nom</label><input type="text" id="eb-name"></div>
+    <div class="f"><label>Téléphone</label><input type="tel" id="eb-phone"></div>
+    <div class="f"><label>Ville</label><select id="eb-city"></select></div>
+    <button class="btn bg" onclick="saveBuyerEdit()">Enregistrer</button>
+    <button class="btn bd" onclick="closeModal('m-edit-buyer')">Annuler</button>
+  </div>
+</div>
+<div class="mbg" id="m-edit-vendor">
+  <div class="modal"><div class="mh"></div><h3 style="margin-bottom:14px;">Modifier ma boutique</h3>
+    <div class="f"><label>Nom de la boutique</label><input type="text" id="ev-shop"></div>
+    <div class="f"><label>Description</label><textarea id="ev-desc" rows="2"></textarea></div>
+    <div class="f"><label>Téléphone</label><input type="tel" id="ev-phone"></div>
+    <div class="f"><label>Quartier</label><input type="text" id="ev-qtr"></div>
+    <button class="btn bg" onclick="saveVendorEdit()">Enregistrer</button>
+    <button class="btn bd" onclick="closeModal('m-edit-vendor')">Annuler</button>
+  </div>
+</div>
+
+<script type="module">
+// ══════════════════════════════════════════════════════
+// FIREBASE
+// ══════════════════════════════════════════════════════
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc, deleteDoc, query, where, orderBy, onSnapshot, arrayUnion, arrayRemove, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB2zu4dOJt2sf04t0bw6nAbKIF-Ebn84Jg",
+  authDomain: "ismarket.firebaseapp.com",
+  projectId: "ismarket",
+  storageBucket: "ismarket.appspot.com",
+  messagingSenderId: "540791548761",
+  appId: "1:540791548761:web:7af88b6a9c40e8e3fafa48"
+};
+
+const fbApp = initializeApp(firebaseConfig);
+const db = getFirestore(fbApp);
+
+// ── Cloudinary (remplace Firebase Storage, gratuit sans carte bancaire) ──
+const CLOUDINARY_CLOUD_NAME = "dyern9jn5";
+const CLOUDINARY_UPLOAD_PRESET = "ismarket_unsigned";
+
+// ── Firestore helpers ──
+async function getAll(col) {
+  try { const s=await getDocs(collection(db,col)); return s.docs.map(d=>({id:d.id,...d.data()})); }
+  catch(e){ console.error(e); return []; }
+}
+async function getOne(col,id) {
+  try { const s=await getDoc(doc(db,col,id)); return s.exists()?{id:s.id,...s.data()}:null; }
+  catch(e){ return null; }
+}
+async function setOne(col,id,data) {
+  try { await setDoc(doc(db,col,id),data,{merge:true}); }
+  catch(e){ console.error(e); }
+}
+async function addOne(col,data) {
+  try { const r=await addDoc(collection(db,col),data); return r.id; }
+  catch(e){ console.error(e); return null; }
+}
+async function updOne(col,id,data) {
+  try { await updateDoc(doc(db,col,id),data); }
+  catch(e){ console.error(e); }
+}
+async function delOne(col,id) {
+  try { await deleteDoc(doc(db,col,id)); }
+  catch(e){ console.error(e); }
+}
+async function qWhere(col,field,op,val) {
+  try { const s=await getDocs(query(collection(db,col),where(field,op,val))); return s.docs.map(d=>({id:d.id,...d.data()})); }
+  catch(e){ return []; }
+}
+
+// ══════════════════════════════════════════════════════
+// CONSTANTES
+// ══════════════════════════════════════════════════════
+const CITIES=["Douala","Yaoundé","Bafoussam","Garoua","Maroua","Bertoua","Buea","Ngaoundéré","Bamenda","Kribi"];
+const CATS=["Tout","Mode","Alimentation","Électronique","Maison","Beauté","Sport","Auto","Services","Autre"];
+const EMOJIS=["👟","👗","👜","⌚","🎧","📱","💻","🍅","🥩","🍕","🛋","🔧","💄","⚽","🚗","🏠","📚","🎮","🌸","✨"];
+const APWD="dior237_@";
+
+let SESSION=null;
+let actCat="Tout",actCity="Toutes",pFilt="Tous",cFilt="Toutes",admTab="pending";
+let curAdmChat=null,curChatVId=null,avisTarget=null,reportTarget=null,selEmoji="🛍️",selStars=0;
+
+// ── Utils ──
+const $=id=>document.getElementById(id);
+let toastT;
+function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>{t.classList.remove("show");setTimeout(()=>t.style.display="none",300);},2800);}
+const fF=n=>(+n).toLocaleString("fr-FR")+" FCFA";
+const tsNow=()=>new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
+const dnow=()=>new Date().toLocaleDateString("fr-FR");
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const avg=arr=>arr&&arr.length?Math.round(arr.reduce((s,x)=>s+x,0)/arr.length*10)/10:0;
+const daysLeft=d=>{if(!d)return 60;const e=new Date(d);e.setDate(e.getDate()+60);return Math.max(0,Math.ceil((e-new Date())/86400000));};
+
+// ── Logo ──
+function mkL(sz=36){return `<svg width="${sz}" height="${sz}" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><rect width="512" height="512" rx="110" fill="#0a0a0a"/><ellipse cx="256" cy="220" rx="148" ry="65" fill="none" stroke="#E8A93D" stroke-width="11" transform="rotate(-30 256 220)"/><ellipse cx="256" cy="220" rx="148" ry="65" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="5" transform="rotate(60 256 220)"/><polygon points="340,74 349,100 377,100 355,116 364,142 340,126 316,142 325,116 303,100 331,100" fill="#E8A93D"/><text x="256" y="308" text-anchor="middle" font-family="Georgia,serif" font-size="190" font-weight="900" fill="#fff">I</text></svg>`;}
+function mkLB(sz=34){return `<div style="display:flex;align-items:center;gap:9px;">${mkL(sz)}<div style="font-size:${sz>40?20:16}px;font-weight:800;">ISM<span style="color:#E8A93D;">ARKET</span><span style="font-size:9px;background:linear-gradient(135deg,#E8A93D,#f5c842);color:#000;border-radius:5px;padding:2px 5px;margin-left:5px;font-weight:700;">2.0</span></div></div>`;}
+
+// ── Nav ──
+function showScr(id){document.querySelectorAll(".scr").forEach(s=>s.classList.remove("on"));$(id).classList.add("on");}
+function openModal(id){$(id).classList.add("on");}
+function closeModal(id){$(id).classList.remove("on");}
+["m-prod","m-addprod","m-notifs","m-order","m-avis","m-report","m-chat","m-edit-buyer","m-edit-vendor"].forEach(id=>{
+  $(id)?.addEventListener("click",e=>{if(e.target.id===id)closeModal(id);});
+});
+function navB(){$("nav-buyer").classList.remove("h");$("nav-vendor").classList.add("h");}
+function navV(){$("nav-buyer").classList.add("h");$("nav-vendor").classList.remove("h");}
+function navN(){$("nav-buyer").classList.add("h");$("nav-vendor").classList.add("h");}
+function goHome(){showScr("s-home");navB();renderHome();}
+function goSearch(){showScr("s-search");navB();initSearch();}
+function goFavs(){showScr("s-favs");navB();renderFavs();}
+function goVend(){if(SESSION?.role==="vendor"){gvt("dash");}else{showScr("s-vauth");navB();}}
+function goAdmin(){showScr("s-admin");navN();$("logo-admin").innerHTML=mkLB(30);}
+function openBuyerAcc(){if(!SESSION||SESSION.role!=="buyer"){showScr("s-bauth");navB();}else{showScr("s-bprofil");navB();renderBProfil();}}
+function gvt(t){
+  navV();
+  if(t==="dash"){showScr("s-vdash");renderVDash();}
+  if(t==="prods"){showScr("s-vprods");renderVP();}
+  if(t==="cmds"){showScr("s-vcmds");renderVCmds();}
+  if(t==="stats"){showScr("s-vstats");renderVStats();}
+  if(t==="chat"){showScr("s-vchat");renderVChat();}
+  if(t==="profil"){showScr("s-vprofil");renderVProfil();}
+}
+window.goHome=goHome;window.goSearch=goSearch;window.goFavs=goFavs;window.goVend=goVend;window.goAdmin=goAdmin;
+window.openBuyerAcc=openBuyerAcc;window.gvt=gvt;window.openModal=openModal;window.closeModal=closeModal;
+
+// ══════════════════════════════════════════════════════
+// HOME
+// ══════════════════════════════════════════════════════
+async function renderHome(){
+  ["logo-home","logo-bauth","logo-vauth","logo-vdash"].forEach(id=>{if($(id))$(id).innerHTML=mkLB(id==="logo-vdash"?30:34);});
+  const [vendors,prods]=await Promise.all([getAll("vendors"),getAll("products")]);
+  const active=vendors.filter(v=>v.status==="active"||v.status==="approved").length;
+  const ap=prods.filter(p=>{const v=vendors.find(x=>x.id===p.vId);return v&&(v.status==="active"||v.status==="approved")&&p.on;}).length;
+  $("counters").innerHTML=[
+    {v:vendors.length,l:"Membres"},{v:active,l:"Boutiques"},{v:ap,l:"Produits"}
+  ].map(c=>`<div style="flex:1;background:var(--gold3);border:1px solid rgba(232,169,61,.2);border-radius:12px;padding:10px;text-align:center;"><div style="font-size:18px;font-weight:800;color:var(--gold);">${c.v}</div><div style="font-size:9px;color:var(--t2);text-transform:uppercase;letter-spacing:.04em;margin-top:1px;">${c.l}</div></div>`).join("");
+  $("cat-chips").innerHTML=CATS.map(c=>`<div class="chip${c===actCat?" on":""}" onclick="setFC('cat','${c}')">${c}</div>`).join("");
+  $("city-chips").innerHTML=["Toutes",...CITIES].map(c=>`<div class="chip${c===actCity?" on":""}" onclick="setFC('city','${c}')">${c}</div>`).join("");
+  if(SESSION?.role==="buyer")$("buyer-ava-h").textContent=SESSION.name?.[0]?.toUpperCase()||"👤";
+  renderGrid(vendors,prods);
+}
+window.setFC=(type,val)=>{if(type==="cat")actCat=val;else actCity=val;renderHome();};
+
+async function renderGrid(vendors,prods){
+  if(!vendors){[vendors,prods]=await Promise.all([getAll("vendors"),getAll("products")]);}
+  const q=$("home-search").value.toLowerCase();
+  const sort=$("sort-sel").value;
+  let pp=prods.filter(p=>{
+    const v=vendors.find(x=>x.id===p.vId);
+    if(!v||(v.status!=="active"&&v.status!=="approved")||!p.on)return false;
+    if(actCat!=="Tout"&&p.cat!==actCat)return false;
+    if(actCity!=="Toutes"&&v.city!==actCity)return false;
+    if(q&&!p.name?.toLowerCase().includes(q)&&!v.shop?.toLowerCase().includes(q))return false;
+    return true;
+  });
+  if(sort==="popular")pp.sort((a,b)=>(b.views||0)-(a.views||0));
+  else if(sort==="price-asc")pp.sort((a,b)=>(a.promo||a.price)-(b.promo||b.price));
+  else if(sort==="price-desc")pp.sort((a,b)=>(b.promo||b.price)-(a.promo||a.price));
+  else if(sort==="rating")pp.sort((a,b)=>avg(b.ratings)-avg(a.ratings));
+  else pp.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+  pp.sort((a,b)=>(b.sponsored?1:0)-(a.sponsored?1:0));
+  $("grid-title").textContent=actCat==="Tout"?"Tous les produits":actCat;
+  const faves=SESSION?.likes||[];
+  $("home-grid").innerHTML=pp.length===0
+    ?`<div style="grid-column:1/-1;text-align:center;padding:44px;color:var(--t2);">🗂️<br><br>Aucun produit</div>`
+    :pp.map(p=>{
+      const v=vendors.find(x=>x.id===p.vId);
+      const rat=avg(p.ratings||[]);const liked=faves.includes(p.id);
+      const thumbContent = p.imageUrl
+        ? `<img src="${p.imageUrl}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">`
+        : (p.emoji||"🛍️");
+      return `<div class="pc" onclick="openProd('${p.id}')">
+        <div class="pthumb" style="position:relative;">${thumbContent}
+          ${p.sponsored?`<span class="ptag" style="background:rgba(249,115,22,.9);color:#fff;">⭐ Sponsorisé</span>`:p.promo?`<span class="ptag" style="background:rgba(239,68,68,.9);color:#fff;">PROMO</span>`:""}
+          <div class="ctag">📍 ${v.city}</div>${v.verified?`<div class="ccert">✓</div>`:""}
+        </div>
+        <div class="pbody">
+          <div style="font-size:12.5px;font-weight:700;line-height:1.25;margin-bottom:2px;">${p.name}</div>
+          <div style="font-size:10px;color:var(--t2);margin-bottom:3px;">${v.shop}</div>
+          ${rat>0?`<div style="display:flex;gap:2px;margin-bottom:3px;">${[1,2,3,4,5].map(i=>`<span style="font-size:10px;color:${i<=Math.round(rat)?"var(--gold)":"var(--t3)"};">★</span>`).join("")}<span style="font-size:9px;color:var(--t2);margin-left:2px;">${rat}</span></div>`:""}
+          <div style="font-size:14px;font-weight:800;color:var(--gold);">${fF(p.promo||p.price)}</div>
+          ${p.promo?`<div style="font-size:10px;text-decoration:line-through;color:var(--t3);">${fF(p.price)}</div>`:""}
+          <div style="font-size:11px;color:${liked?"var(--red)":"var(--t3)"};margin-top:4px;">${liked?"❤️":"🤍"} ${p.likes||0} · 💬 ${(p.comments||[]).length}</div>
+        </div>
+      </div>`;
+    }).join("");
+}
+window.renderGrid=renderGrid;
+
+async function openProd(pid){
+  const [p,vendors]=await Promise.all([getOne("products",pid),getAll("vendors")]);
+  if(!p)return;
+  const v=vendors.find(x=>x.id===p.vId);if(!v)return;
+  await updOne("products",pid,{views:increment(1)});
+  const liked=SESSION?.likes?.includes(pid);
+  const rat=avg(p.ratings||[]);
+  // Photo principale ou galerie
+  const mainMedia = p.imageUrl
+    ? `<div style="width:100%;height:220px;border-radius:16px;overflow:hidden;margin-bottom:${(p.images||[]).length>1?'8px':'13px'};">
+        <img src="${p.imageUrl}" style="width:100%;height:100%;object-fit:cover;">
+       </div>
+       ${(p.images||[]).length>1?`<div style="display:flex;gap:6px;overflow-x:auto;margin-bottom:13px;scrollbar-width:none;">
+         ${(p.images||[]).map(u=>`<img src="${u}" style="width:72px;height:72px;border-radius:10px;object-fit:cover;flex-shrink:0;border:2px solid ${u===p.imageUrl?'var(--gold)':'var(--line)'};" onclick="this.parentNode.previousElementSibling.querySelector('img').src='${u}'">`).join('')}
+       </div>`:''}`
+    : `<div style="font-size:70px;text-align:center;background:var(--bg3);border-radius:16px;padding:28px;margin-bottom:13px;">${p.emoji||"🛍️"}</div>`;
+  $("m-prod-c").innerHTML=`
+    ${mainMedia}
+    <h2 style="font-size:19px;margin-bottom:4px;">${p.name}</h2>
+    ${p.desc?`<p style="font-size:13px;color:var(--t2);margin-bottom:10px;line-height:1.5;">${p.desc}</p>`:""}
+    <div style="font-size:22px;font-weight:800;color:var(--gold);">${fF(p.promo||p.price)}</div>
+    ${p.promo?`<div style="font-size:12px;text-decoration:line-through;color:var(--t3);margin-bottom:6px;">${fF(p.price)}</div>`:`<div style="margin-bottom:8px;"></div>`}
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+      <span class="pill py">📍 ${v.qtr||""}, ${v.city}</span>
+      ${v.verified?`<span class="pill pg">✓ Certifié</span>`:""}
+      ${p.cat?`<span class="pill pp">${p.cat}</span>`:""}
+      <span class="pill ${(p.stock||0)>0?"pg":"pr"}">${(p.stock||0)>0?"En stock ("+p.stock+")":"Rupture"}</span>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <button style="flex:1;padding:10px;border-radius:10px;background:${liked?"rgba(239,68,68,.12)":"var(--bg3)"};border:1px solid ${liked?"rgba(239,68,68,.3)":"var(--line)"};color:${liked?"var(--red)":"var(--t2)"};font-size:13px;font-weight:700;cursor:pointer;" onclick="toggleLike('${pid}')"> ${liked?"❤️":"🤍"} ${p.likes||0} J'aime</button>
+      <button style="flex:1;padding:10px;border-radius:10px;background:var(--bg3);border:1px solid var(--line);color:var(--t2);font-size:13px;font-weight:700;cursor:pointer;" onclick="openAvis('${pid}','${(p.name||"").replace(/'/g,"\\'")}')">⭐ Avis</button>
+    </div>
+    ${rat>0?`<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">${[1,2,3,4,5].map(i=>`<span style="font-size:16px;color:${i<=Math.round(rat)?"var(--gold)":"var(--t3)"};">★</span>`).join("")}<span style="font-size:14px;font-weight:700;">${rat}/5</span><span style="font-size:12px;color:var(--t2);">(${(p.ratings||[]).length} avis)</span></div>`:""}
+    <div class="card" style="margin-bottom:12px;">
+      <div style="font-weight:700;font-size:14px;margin-bottom:8px;">${v.shop}</div>
+      <div style="display:flex;gap:8px;">
+        <a class="btn bg bsm" href="tel:+237${v.phone}" style="flex:1;text-decoration:none;">📞 Appeler</a>
+        <a class="btn bo bsm" href="https://wa.me/237${v.phone}" target="_blank" style="flex:1;text-decoration:none;">💬 WhatsApp</a>
+        <button class="btn bd bsm" onclick="openChat('${v.id}','${(v.shop||"").replace(/'/g,"\\'")}')">✉️ Chat</button>
+      </div>
+    </div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:10px;">Avis (${(p.comments||[]).length})</div>
+    ${(p.comments||[]).length===0?`<div style="font-size:13px;color:var(--t2);margin-bottom:12px;">Aucun avis. Sois le premier !</div>`:
+    (p.comments||[]).slice(-4).map(c=>`<div class="card" style="padding:10px;margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);">${c.author}</div>
+        <div>${[1,2,3,4,5].map(i=>`<span style="font-size:11px;color:${i<=(c.stars||0)?"var(--gold)":"var(--t3)"};">★</span>`).join("")}</div>
+      </div>
+      <div style="font-size:13px;line-height:1.4;">${c.text}</div>
+      <div style="font-size:10px;color:var(--t3);margin-top:3px;">${c.date||""}</div>
+    </div>`).join("")}
+    <button class="btn bd" style="margin-top:4px;" onclick="openReport('${pid}')">⚠️ Signaler</button>`;
+  openModal("m-prod");
+}
+window.openProd=openProd;
+
+// ══════════════════════════════════════════════════════
+// LIKE
+// ══════════════════════════════════════════════════════
+async function toggleLike(pid){
+  if(!SESSION||SESSION.role!=="buyer"){toast("Connecte-toi pour liker !");showScr("s-bauth");navB();return;}
+  const likes=SESSION.likes||[];
+  const isLiked=likes.includes(pid);
+  if(isLiked){
+    SESSION.likes=likes.filter(x=>x!==pid);
+    await updOne("buyers",SESSION.id,{likes:arrayRemove(pid)});
+    await updOne("products",pid,{likes:increment(-1)});
+  } else {
+    SESSION.likes=[...likes,pid];
+    await updOne("buyers",SESSION.id,{likes:arrayUnion(pid)});
+    await updOne("products",pid,{likes:increment(1)});
+  }
+  localStorage.setItem("ism_sess",JSON.stringify(SESSION));
+  closeModal("m-prod");setTimeout(()=>openProd(pid),100);
+  renderGrid();
+}
+window.toggleLike=toggleLike;
+
+// ══════════════════════════════════════════════════════
+// RECHERCHE
+// ══════════════════════════════════════════════════════
+function initSearch(){
+  CITIES.forEach(c=>{const el=$("f-city");if(el&&!el.querySelector(`option[value="${c}"]`))el.innerHTML+=`<option value="${c}">${c}</option>`;});
+  CATS.filter(c=>c!=="Tout").forEach(c=>{const el=$("f-cat");if(el&&!el.querySelector(`option[value="${c}"]`))el.innerHTML+=`<option value="${c}">${c}</option>`;});
+  doSearch();
+}
+async function doSearch(){
+  const q=($("search-inp")||{value:""}).value.toLowerCase();
+  const pmin=parseFloat($("f-pmin")?.value)||0;
+  const pmax=parseFloat($("f-pmax")?.value)||Infinity;
+  const city=$("f-city")?.value||"";
+  const cat=$("f-cat")?.value||"";
+  const [prods,vendors]=await Promise.all([getAll("products"),getAll("vendors")]);
+  const pp=prods.filter(p=>{
+    const v=vendors.find(x=>x.id===p.vId);
+    if(!v||(v.status!=="active"&&v.status!=="approved")||!p.on)return false;
+    const pr=p.promo||p.price;
+    if(pr<pmin||pr>pmax)return false;
+    if(city&&v.city!==city)return false;
+    if(cat&&p.cat!==cat)return false;
+    if(q&&!p.name?.toLowerCase().includes(q)&&!v.shop?.toLowerCase().includes(q))return false;
+    return true;
+  });
+  $("search-count").textContent=`${pp.length} résultat${pp.length>1?"s":""}`;
+  const faves=SESSION?.likes||[];
+  $("search-grid").innerHTML=pp.length===0
+    ?`<div style="grid-column:1/-1;text-align:center;padding:44px;color:var(--t2);">🔍<br><br>Aucun résultat</div>`
+    :pp.map(p=>{const v=vendors.find(x=>x.id===p.vId);const liked=faves.includes(p.id);return `<div class="pc" onclick="openProd('${p.id}')">
+      <div class="pthumb">${p.emoji||"🛍️"}<div class="ctag">📍 ${v.city}</div>${v.verified?`<div class="ccert">✓</div>`:""}</div>
+      <div class="pbody"><div style="font-size:12.5px;font-weight:700;">${p.name}</div><div style="font-size:10px;color:var(--t2);">${v.shop}</div><div style="font-size:14px;font-weight:800;color:var(--gold);margin-top:3px;">${fF(p.promo||p.price)}</div><div style="font-size:11px;color:${liked?"var(--red)":"var(--t3)"};">${liked?"❤️":"🤍"}${p.likes||0}</div></div>
+    </div>`;}).join("");
+}
+window.doSearch=doSearch;
+
+// Voice search
+function toggleVoice(){
+  if(!("webkitSpeechRecognition" in window||"SpeechRecognition" in window)){toast("Recherche vocale non disponible.");return;}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  const r=new SR();r.lang="fr-FR";r.interimResults=false;
+  r.onresult=e=>{$("home-search").value=e.results[0][0].transcript;renderGrid();};
+  r.onerror=()=>toast("Erreur microphone.");
+  r.start();toast("🎤 Parle maintenant...");
+}
+window.toggleVoice=toggleVoice;
+
+// ══════════════════════════════════════════════════════
+// AUTH ACHETEUR
+// ══════════════════════════════════════════════════════
+CITIES.forEach(c=>{["br-city","eb-city"].forEach(id=>{const el=$(id);if(el)el.innerHTML+=`<option value="${c}">${c}</option>`;});});
+function bTab(t){
+  $("bf-login").classList.toggle("h",t!=="login");$("bf-reg").classList.toggle("h",t!=="reg");
+  $("bt-login").className=`btn ${t==="login"?"bg":"bd"} bsm`;$("bt-reg").className=`btn ${t==="reg"?"bg":"bd"} bsm`;
+}
+async function doBLogin(){
+  const em=$("bl-email").value.trim().toLowerCase(),pw=$("bl-pass").value.trim();
+  if(!em||!pw){toast("Remplis tous les champs.");return;}
+  const res=await qWhere("buyers","email","==",em);
+  const b=res.find(x=>x.pass===pw);
+  if(!b){toast("Email ou mot de passe incorrect.");return;}
+  SESSION={...b,role:"buyer"};localStorage.setItem("ism_sess",JSON.stringify(SESSION));
+  goHome();toast(`Bienvenue, ${b.name} 👋`);
+}
+async function doBRegister(){
+  const name=$("br-name").value.trim(),phone=$("br-phone").value.trim(),email=$("br-email").value.trim().toLowerCase(),pass=$("br-pass").value.trim(),city=$("br-city").value;
+  if(!name||!phone||!email||!pass){toast("Remplis tous les champs.");return;}
+  if(pass.length<6){toast("Mot de passe trop court.");return;}
+  const exists=await qWhere("buyers","email","==",email);
+  if(exists.length){toast("Email déjà utilisé.");return;}
+  const id=uid();
+  const nb={id,name,phone,email,pass,city,likes:[],createdAt:new Date().toISOString()};
+  await setOne("buyers",id,nb);
+  SESSION={...nb,role:"buyer"};localStorage.setItem("ism_sess",JSON.stringify(SESSION));
+  goHome();toast(`Bienvenue, ${name} ! 🎉`);
+}
+window.bTab=bTab;window.doBLogin=doBLogin;window.doBRegister=doBRegister;
+
+// ══════════════════════════════════════════════════════
+// PROFIL ACHETEUR
+// ══════════════════════════════════════════════════════
+async function renderBProfil(){
+  const b=SESSION;if(!b)return;
+  const prods=await getAll("products");
+  $("bp-ava").innerHTML=`<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#000;">${b.name?.[0]?.toUpperCase()||"?"}</div>`;
+  $("bp-name").textContent=b.name||"—";
+  $("bp-meta").innerHTML=`📞 ${b.phone||"—"} · 📍 ${b.city||"—"}`;
+  $("bp-stats").innerHTML=[{l:"Favoris",v:(b.likes||[]).length},{l:"Avis",v:prods.reduce((s,p)=>(p.comments||[]).filter(c=>c.authorId===b.id).length+s,0)},{l:"Compte",v:"✅"}]
+    .map(s=>`<div class="scard" style="text-align:center;"><div class="snum" style="font-size:16px;">${s.v}</div><div class="slbl">${s.l}</div></div>`).join("");
+  $("bp-menu").innerHTML=[{i:"❤️",l:"Mes favoris",fn:"goFavs()"},{i:"📦",l:"Mes achats",fn:"toast('Bientôt !')"},{i:"✏️",l:"Modifier profil",fn:"openEditBuyer()"},{i:"🔔",l:"Notifications",fn:"openModal('m-notifs');renderNotifs()"}]
+    .map(m=>`<div class="li" onclick="${m.fn}"><div class="li-ico">${m.i}</div><div><div style="font-size:14px;font-weight:600;">${m.l}</div></div><span style="color:var(--t3);margin-left:auto;">›</span></div>`).join("")
+    +`<div class="li" onclick="doBLogout()" style="margin-top:6px;"><div class="li-ico">🚪</div><div><div style="font-size:14px;font-weight:600;color:var(--red);">Déconnexion</div></div></div>`;
+}
+function openEditBuyer(){
+  $("eb-name").value=SESSION?.name||"";$("eb-phone").value=SESSION?.phone||"";
+  if($("eb-city"))$("eb-city").value=SESSION?.city||"";
+  openModal("m-edit-buyer");
+}
+async function saveBuyerEdit(){
+  const name=$("eb-name").value.trim(),phone=$("eb-phone").value.trim(),city=$("eb-city").value;
+  if(!name){toast("Nom requis.");return;}
+  await updOne("buyers",SESSION.id,{name,phone,city});
+  SESSION={...SESSION,name,phone,city};localStorage.setItem("ism_sess",JSON.stringify(SESSION));
+  closeModal("m-edit-buyer");renderBProfil();toast("Profil mis à jour !");
+}
+function doBLogout(){SESSION=null;localStorage.removeItem("ism_sess");goHome();toast("Déconnecté.");}
+window.renderBProfil=renderBProfil;window.openEditBuyer=openEditBuyer;window.saveBuyerEdit=saveBuyerEdit;window.doBLogout=doBLogout;
+
+// ══════════════════════════════════════════════════════
+// FAVORIS
+// ══════════════════════════════════════════════════════
+async function renderFavs(){
+  const [prods,vendors]=await Promise.all([getAll("products"),getAll("vendors")]);
+  const faves=SESSION?.likes||[];
+  const pp=prods.filter(p=>faves.includes(p.id));
+  $("favs-grid").innerHTML=pp.length===0
+    ?`<div style="grid-column:1/-1;text-align:center;padding:44px;color:var(--t2);">❤️<br><br>Aucun favori</div>`
+    :pp.map(p=>{const v=vendors.find(x=>x.id===p.vId);return `<div class="pc" onclick="openProd('${p.id}')">
+      <div class="pthumb">${p.emoji||"🛍️"}<div class="ctag">${v?.city||""}</div></div>
+      <div class="pbody"><div style="font-size:12.5px;font-weight:700;">${p.name}</div><div style="font-size:14px;font-weight:800;color:var(--gold);margin-top:4px;">${fF(p.promo||p.price)}</div></div>
+    </div>`;}).join("");
+}
+window.renderFavs=renderFavs;
+
+// ══════════════════════════════════════════════════════
+// AUTH VENDEUR
+// ══════════════════════════════════════════════════════
+CITIES.forEach(c=>$("vr-city").innerHTML+=`<option value="${c}">${c}</option>`);
+CATS.filter(c=>c!=="Tout").forEach(c=>{$("np-cat").innerHTML+=`<option value="${c}">${c}</option>`;});
+function vTab(t){
+  $("vf-login").classList.toggle("h",t!=="login");$("vf-reg").classList.toggle("h",t!=="reg");
+  $("vt-login").className=`btn ${t==="login"?"bg":"bd"} bsm`;$("vt-reg").className=`btn ${t==="reg"?"bg":"bd"} bsm`;
+}
+async function doVLogin(){
+  const em=$("vl-e").value.trim().toLowerCase(),pw=$("vl-p").value.trim();
+  if(!em||!pw){toast("Remplis tous les champs.");return;}
+  const res=await qWhere("vendors","email","==",em);
+  const v=res.find(x=>x.pass===pw);
+  if(!v){toast("Email ou mot de passe incorrect.");return;}
+  // Accepter "active" ET "approved" comme statut valide
+  const isActive = v.status==="active"||v.status==="approved";
+  if(!isActive && v.status==="pending"){toast("⏳ Ta boutique est en attente d'approbation.");return;}
+  if(v.status==="suspended"){toast("🚫 Boutique suspendue. Contacte le support.");return;}
+  // Normaliser le statut à "active" pour cohérence interne
+  if(v.status==="approved") v.status="active";
+  SESSION={...v,role:"vendor"};localStorage.setItem("ism_sess",JSON.stringify(SESSION));
+  gvt("dash");toast(`Bienvenue, ${v.shop} 👋`);
+}
+async function doVRegister(){
+  const shop=$("vr-shop").value.trim(),desc=$("vr-desc").value.trim(),phone=$("vr-phone").value.trim(),city=$("vr-city").value,qtr=$("vr-qtr").value.trim(),email=$("vr-email").value.trim().toLowerCase(),pass=$("vr-pass").value.trim();
+  if(!shop||!phone||!email||!pass||!qtr){toast("Remplis tous les champs obligatoires.");return;}
+  if(pass.length<6){toast("Mot de passe trop court.");return;}
+  const exists=await qWhere("vendors","email","==",email);
+  if(exists.length){toast("Email déjà utilisé.");return;}
+  const id=uid();
+  const nv={id,shop,desc,phone,email,pass,city,qtr,status:"pending",verified:false,createdAt:new Date().toISOString(),zones:[{l:city+" même ville",d:"À définir"}],views:0,ventes:0,revenue:0};
+  await setOne("vendors",id,nv);
+  await setOne("chats",id,{messages:[],vendorId:id});
+  toast("✅ Demande envoyée ! Réponse sous 24h.");
+  ["vr-shop","vr-desc","vr-phone","vr-qtr","vr-email","vr-pass"].forEach(i=>$(i).value="");
+  vTab("login");
+}
+window.vTab=vTab;window.doVLogin=doVLogin;window.doVRegister=doVRegister;
+
+// ══════════════════════════════════════════════════════
+// VENDOR DASH
+// ══════════════════════════════════════════════════════
+async function renderVDash(){
+  $("logo-vdash").innerHTML=mkLB(30);
+  // Toujours recharger depuis Firestore (pas depuis SESSION local)
+  const v=await getOne("vendors",SESSION?.id);if(!v)return;
+  // Normaliser statut approved → active
+  if(v.status==="approved") v.status="active";
+  // Mettre à jour SESSION et localStorage avec les données fraîches
+  SESSION={...SESSION,...v,role:"vendor"};
+  localStorage.setItem("ism_sess",JSON.stringify(SESSION));
+  $("v-shop").textContent=v.shop;
+  $("v-loc").textContent=`📍 ${v.qtr||""}, ${v.city}`;
+  $("v-ava").innerHTML=`<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#000;">${v.shop?.[0]||"B"}</div>`;
+  const isActive = v.status==="active"||v.status==="approved";
+  $("v-badges").innerHTML=v.verified
+    ?`<span class="pill pg" style="font-size:10px;">✓ Certifié</span>`
+    :isActive
+      ?`<span class="pill pg" style="font-size:10px;">✅ Boutique active</span>`
+      :`<span class="pill pp" style="font-size:10px;">⏳ En attente d'approbation</span>`;
+  const dl=daysLeft(v.createdAt);
+  $("v-trial").innerHTML=dl>0
+    ?`<div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:12px;color:var(--gold);font-weight:700;">🎉 Essai gratuit</div><div style="font-size:18px;font-weight:800;margin-top:3px;">${dl} jours restants</div></div><div style="text-align:right;"><div class="pbar" style="width:80px;"><div class="pbar-fill" style="width:${Math.round((60-dl)/60*100)}%;"></div></div><div style="font-size:10px;color:var(--t2);margin-top:3px;">${60-dl}/60 jours</div></div></div>`
+    :`<div style="color:var(--red);font-weight:700;font-size:13px;">⏰ Période d'essai terminée<br><span style="font-weight:400;font-size:12px;color:var(--t2);">Contacte-nous via le chat (5 000 FCFA/mois)</span></div>`;
+  const myP=await qWhere("products","vId","==",v.id);
+  const chatDoc=await getOne("chats",v.id);
+  const msgs=chatDoc?.messages||[];
+  const unread=msgs.filter(m=>m.from==="admin"&&!m.read).length;
+  [$("chat-dot"),$("chat-dot2")].forEach(d=>{if(d)d.classList.toggle("on",unread>0);});
+  $("v-stats").innerHTML=[
+    {l:"Produits",v:myP.length,i:"🛍️"},
+    {l:"Vues",v:myP.reduce((s,p)=>s+(p.views||0),0),i:"👁"},
+    {l:"J'aime",v:myP.reduce((s,p)=>s+(p.likes||0),0),i:"❤️"},
+    {l:"Avis",v:myP.reduce((s,p)=>(p.ratings||[]).length+s,0),i:"⭐"},
+  ].map(s=>`<div class="scard"><div class="snum">${s.i} ${s.v}</div><div class="slbl">${s.l}</div></div>`).join("");
+}
+
+// ══════════════════════════════════════════════════════
+// PRODUITS VENDEUR
+// ══════════════════════════════════════════════════════
+// ── Photo upload local preview ──
+let selectedFiles = [];
+window.previewPhotos = function(e) {
+  selectedFiles = Array.from(e.target.files);
+  const grid = $("photo-preview-grid");
+  // Garde le bouton +
+  const addBtn = grid.querySelector("label");
+  grid.innerHTML = "";
+  selectedFiles.slice(0,6).forEach((f,i) => {
+    const url = URL.createObjectURL(f);
+    const div = document.createElement("div");
+    div.style.cssText = "position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;border:1px solid var(--line);";
+    div.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;">
+      <button onclick="removePhoto(${i})" style="position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.7);border:none;color:#fff;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;">×</button>`;
+    grid.appendChild(div);
+  });
+  if(selectedFiles.length < 6) grid.appendChild(addBtn);
+};
+window.removePhoto = function(i) {
+  selectedFiles.splice(i,1);
+  // Re-trigger preview
+  const dt = new DataTransfer();
+  selectedFiles.forEach(f => dt.items.add(f));
+  $("photo-input").files = dt.files;
+  previewPhotos({target:{files:dt.files}});
+};
+
+// ── Upload vers Cloudinary (remplace Firebase Storage) ──
+async function uploadProductImages(productId, files) {
+  const urls = [];
+  for(let i = 0; i < files.length; i++) {
+    const f = files[i];
+    const formData = new FormData();
+    formData.append("file", f);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    formData.append("folder", `products/${productId}`);
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(()=>controller.abort(), 30000); // 30s max par photo, évite un blocage infini
+
+    let res;
+    try{
+      res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+        method: "POST",
+        body: formData,
+        signal: controller.signal
+      });
+    } catch(e){
+      if(e.name==="AbortError") throw new Error("Upload trop long (>30s), vérifie ta connexion.");
+      throw e;
+    } finally{
+      clearTimeout(timeoutId);
+    }
+
+    if(!res.ok){
+      const errBody = await res.text();
+      throw new Error(`Échec upload Cloudinary (${res.status}): ${errBody}`);
+    }
+
+    const data = await res.json();
+    urls.push(data.secure_url);
+  }
+  return urls;
+}
+
+// ── Helper image produit ──
+// Gère tous les cas : imageUrl, images[0], image, emoji, fallback
+function getProdThumb(p, size="full"){
+  const url = p.imageUrl || (p.images&&p.images[0]) || p.image || null;
+  if(url){
+    if(size==="full")
+      return `<img src="${url}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <span style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:40px;">${p.emoji||"🛍️"}</span>`;
+    if(size==="sm")
+      return `<img src="${url}" style="width:54px;height:54px;border-radius:12px;object-fit:cover;flex-shrink:0;" onerror="this.outerHTML='<div style=\\'width:54px;height:54px;border-radius:12px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;\\'>${p.emoji||"🛍️"}</div>'">`;
+  }
+  if(size==="sm") return `<div style="width:54px;height:54px;border-radius:12px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">${p.emoji||"🛍️"}</div>`;
+  return `<span style="font-size:40px;">${p.emoji||"🛍️"}</span>`;
+}
+function getProdImages(p){
+  return p.images && p.images.length>0 ? p.images
+       : p.imageUrl ? [p.imageUrl]
+       : p.image ? [p.image]
+       : [];
+}
+$("emoji-row").innerHTML=EMOJIS.map(e=>`<div onclick="selEm('${e}')" data-e="${e}" style="font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;">${e}</div>`).join("");
+window.selEm=e=>{selEmoji=e;$("sel-emoji").textContent=e;document.querySelectorAll("#emoji-row div").forEach(d=>{d.style.borderColor=d.dataset.e===e?"var(--gold)":"transparent";});};
+
+async function renderVP(){
+  const myP=await qWhere("products","vId","==",SESSION?.id);
+  const fls=["Tous","Actifs","En rupture","Désactivés"];
+  $("vpf").innerHTML=fls.map(f=>`<div class="chip${f===pFilt?" on":""}" onclick="setPF('${f}')">${f}</div>`).join("");
+  const q=($("vps")||{value:""}).value.toLowerCase();
+  const pp=myP.filter(p=>{
+    if(q&&!p.name?.toLowerCase().includes(q))return false;
+    if(pFilt==="Actifs")return p.on&&(p.stock||0)>0;
+    if(pFilt==="En rupture")return (p.stock||0)===0;
+    if(pFilt==="Désactivés")return !p.on;
+    return true;
+  });
+  $("vp-list").innerHTML=pp.length===0
+    ?`<div style="text-align:center;padding:40px;color:var(--t2);">🧺<br><br>Aucun produit</div>`
+    :pp.map(p=>{
+      const thumb = p.imageUrl
+        ? `<img src="${p.imageUrl}" style="width:54px;height:54px;border-radius:12px;object-fit:cover;flex-shrink:0;">`
+        : `<div style="width:54px;height:54px;border-radius:12px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">${p.emoji||"🛍️"}</div>`;
+      return `<div class="card" style="display:flex;align-items:center;gap:11px;">
+        ${thumb}
+        <div style="flex:1;">
+          <div style="font-weight:700;font-size:13.5px;">${p.name}</div>
+          <div style="font-size:13px;color:var(--gold);font-weight:600;">${fF(p.promo||p.price)}</div>
+          <div style="font-size:11px;color:${(p.stock||0)>0?"var(--green)":"var(--red)"};">${(p.stock||0)>0?"Stock: "+p.stock:"En rupture"} · 👁${p.views||0} · ❤️${p.likes||0}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;">
+          <label class="tog"><input type="checkbox" ${p.on?"checked":""} onchange="togProd('${p.id}',this.checked)"><span class="tsl"></span></label>
+          <button class="btn br bsm" onclick="delProd('${p.id}')">🗑</button>
+        </div>
+      </div>`;
+    }).join("");
+}
+window.setPF=f=>{pFilt=f;renderVP();};
+window.togProd=async(id,val)=>{await updOne("products",id,{on:val});renderVP();};
+window.delProd=async id=>{if(!confirm("Supprimer ?"))return;await delOne("products",id);renderVP();toast("Supprimé.");};
+
+async function saveProduct(){
+  const v=await getOne("vendors",SESSION?.id);
+  if(!v){toast("Non connecté.");return;}
+  // Bloquer si boutique pas encore approuvée
+  if(v.status!=="active"&&v.status!=="approved"){
+    toast("⏳ Boutique non encore approuvée par l\'admin.");return;
+  }
+  const name=$("np-n").value.trim(),price=parseInt($("np-p").value),stock=parseInt($("np-s").value)||0;
+  if(!name||!price){toast("Nom et prix requis.");return;}
+
+  const btn=$("btn-save-prod");
+  btn.textContent="⏳ Publication...";btn.disabled=true;
+
+  try{
+    const id=uid();
+    let imageUrl=null, images=[];
+    console.log("[saveProduct] vendeur:",v.id,"statut:",v.status);
+
+    // Upload photos si sélectionnées
+    if(selectedFiles.length>0){
+      try{
+        toast("📤 Upload des photos...");
+        images=await uploadProductImages(id, selectedFiles);
+        imageUrl=images[0]; // photo principale
+      } catch(err){
+        console.error("Upload error:",err);
+        toast("⚠️ Erreur upload photo. Produit publié sans image.");
+      }
+    }
+
+    await setOne("products",id,{
+      id, vId:v.id,
+      emoji: imageUrl ? null : selEmoji,  // emoji seulement si pas de photo
+      imageUrl,          // URL photo principale
+      images,            // toutes les URLs
+      name, desc:$("np-d").value.trim(),
+      price, promo:parseInt($("np-promo").value)||null,
+      stock, cat:$("np-cat").value, etat:$("np-etat").value,
+      ratings:[], comments:[], likes:0, views:0,
+      on:true, createdAt:new Date().toISOString()
+    });
+
+    closeModal("m-addprod");
+    ["np-n","np-d","np-p","np-promo","np-s"].forEach(i=>$(i).value="");
+    selEmoji="🛍️";$("sel-emoji").textContent="🛍️";
+    selectedFiles=[];
+    // Reset grid
+    $("photo-preview-grid").innerHTML=`<label for="photo-input" style="aspect-ratio:1;background:var(--bg3);border-radius:12px;border:1.5px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);font-size:12px;gap:4px;"><span style="font-size:24px;">📷</span>Ajouter</label>`;
+    renderVP();toast("✅ Produit publié !");
+
+  } catch(err){
+    console.error("saveProduct error:",err);
+    toast("❌ Erreur publication : "+(err.message||"réessaie."));
+  } finally{
+    // Toujours réinitialiser le bouton, même en cas d'erreur
+    btn.textContent="Publier le produit";btn.disabled=false;
+  }
+}
+window.saveProduct=saveProduct;
+
+// ══════════════════════════════════════════════════════
+// COMMANDES
+// ══════════════════════════════════════════════════════
+const sLbl={pending:"En attente",confirmed:"Confirmée",shipped:"Expédiée",delivered:"Livrée",cancelled:"Annulée"};
+const sCls={pending:"py",confirmed:"pb",shipped:"po",delivered:"pg",cancelled:"pr"};
+async function renderVCmds(){
+  const orders=await qWhere("orders","vId","==",SESSION?.id);
+  const fls=["Toutes","En attente","Livrées"];
+  $("vcf").innerHTML=fls.map(f=>`<div class="chip${f===cFilt?" on":""}" onclick="setCF('${f}')">${f}</div>`).join("");
+  const oo=orders.filter(o=>{if(cFilt==="En attente")return o.status==="pending";if(cFilt==="Livrées")return o.status==="delivered";return true;});
+  $("vcmds-list").innerHTML=oo.length===0
+    ?`<div style="text-align:center;padding:40px;color:var(--t2);">📦<br><br>Aucune commande</div>`
+    :oo.map(o=>`<div class="card" style="cursor:pointer;" onclick="openOrder('${o.id}')">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;"><span style="font-size:13px;font-weight:700;color:var(--gold);">#${(o.id||"").slice(-6).toUpperCase()}</span><span style="font-size:11px;color:var(--t2);">${o.date||""}</span></div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:6px;">${o.client||"—"}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;"><span class="pill ${sCls[o.status]}">${sLbl[o.status]}</span><span style="font-size:14px;font-weight:800;">${fF((o.items||[]).reduce((s,i)=>s+i.price*i.qty,0))}</span></div>
+    </div>`).join("");
+}
+window.setCF=f=>{cFilt=f;renderVCmds();};
+window.openOrder=async id=>{
+  const o=await getOne("orders",id);if(!o)return;
+  const tot=(o.items||[]).reduce((s,i)=>s+i.price*i.qty,0);
+  $("m-order-c").innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;"><h3>#${(o.id||"").slice(-6).toUpperCase()}</h3><span class="pill ${sCls[o.status]}">${sLbl[o.status]}</span></div>
+    <div class="card" style="margin-bottom:12px;">
+      <div style="font-size:13px;font-weight:600;margin-bottom:4px;">${o.client||"—"}</div>
+      <div style="font-size:12px;color:var(--t2);">${o.addr||""}</div>
+      ${(o.items||[]).map(i=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-top:1px solid var(--line);font-size:13px;margin-top:8px;"><span>${i.emoji||"📦"} ${i.name} ×${i.qty}</span><strong>${fF(i.price*i.qty)}</strong></div>`).join("")}
+      <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:800;margin-top:8px;padding-top:8px;border-top:1px solid var(--line);"><span>Total</span><span style="color:var(--gold);">${fF(tot)}</span></div>
+    </div>
+    ${o.status==="pending"?`<div style="display:flex;gap:8px;"><button class="btn br" style="flex:1;" onclick="updOrd('${o.id}','cancelled')">Annuler</button><button class="btn bg" style="flex:1;" onclick="updOrd('${o.id}','confirmed')">Confirmer</button></div>`:""}
+    ${o.status==="confirmed"?`<button class="btn bg" onclick="updOrd('${o.id}','shipped')">📦 Expédiée</button>`:""}
+    ${o.status==="shipped"?`<button class="btn bv" onclick="updOrd('${o.id}','delivered')">✅ Livrée</button>`:""}
+    <button class="btn bd" onclick="closeModal('m-order')" style="margin-top:4px;">Fermer</button>`;
+  openModal("m-order");
+};
+window.updOrd=async(id,st)=>{await updOne("orders",id,{status:st});closeModal("m-order");renderVCmds();toast("Mis à jour.");};
+
+// ══════════════════════════════════════════════════════
+// STATS VENDEUR
+// ══════════════════════════════════════════════════════
+async function renderVStats(){
+  const [myP,orders]=await Promise.all([qWhere("products","vId","==",SESSION?.id),qWhere("orders","vId","==",SESSION?.id)]);
+  const rev=orders.filter(o=>o.status==="delivered").reduce((s,o)=>s+(o.items||[]).reduce((ss,i)=>ss+i.price*i.qty,0),0);
+  const top=[...myP].sort((a,b)=>(b.views||0)-(a.views||0)).slice(0,5);
+  $("vstats-c").innerHTML=`
+    <div class="sgrid">
+      <div class="scard"><div class="snum">👁 ${myP.reduce((s,p)=>s+(p.views||0),0)}</div><div class="slbl">Vues</div></div>
+      <div class="scard"><div class="snum">❤️ ${myP.reduce((s,p)=>s+(p.likes||0),0)}</div><div class="slbl">J'aime</div></div>
+      <div class="scard"><div class="snum">📦 ${orders.length}</div><div class="slbl">Commandes</div></div>
+      <div class="scard"><div class="snum">💰 ${rev.toLocaleString("fr-FR")}</div><div class="slbl">FCFA gagnés</div></div>
+    </div>
+    <div style="font-size:14px;font-weight:700;margin:14px 0 10px;">🏆 Produits les plus vus</div>
+    ${top.map((p,i)=>`<div class="card" style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+      <div style="font-size:18px;font-weight:800;color:var(--gold);width:24px;">${i+1}</div>
+      <div style="font-size:20px;">${p.emoji||"🛍️"}</div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:700;">${p.name}</div><div style="font-size:11px;color:var(--t2);">👁 ${p.views||0} · ❤️ ${p.likes||0}</div></div>
+      <div style="font-size:13px;font-weight:700;color:var(--gold);">${fF(p.promo||p.price)}</div>
+    </div>`).join("")||`<div style="color:var(--t2);text-align:center;padding:20px;">Aucun produit</div>`}`;
+}
+
+// ══════════════════════════════════════════════════════
+// CHAT VENDEUR ↔ ADMIN
+// ══════════════════════════════════════════════════════
+async function renderVChat(){
+  const chatDoc=await getOne("chats",SESSION?.id);
+  const msgs=chatDoc?.messages||[];
+  // Marquer lus
+  const updated=msgs.map(m=>m.from==="admin"?{...m,read:true}:m);
+  if(updated.some((m,i)=>m.read!==msgs[i]?.read))await updOne("chats",SESSION?.id,{messages:updated});
+  $("vchat-msgs").innerHTML=msgs.length===0
+    ?`<div style="text-align:center;padding:44px;color:var(--t2);">👋 Bonjour !<br><br>Contacte-nous pour toute question.</div>`
+    :msgs.map(m=>`<div class="chat-msg ${m.from==="vendor"?"me":"them"}"><div class="chat-bubble">${m.text}</div><div class="chat-time">${m.from==="vendor"?"Toi":"ISMArket"} · ${m.time||""}</div></div>`).join("");
+  setTimeout(()=>{const el=$("vchat-msgs");el.scrollTop=el.scrollHeight;},100);
+}
+async function sendVMsg(){
+  const inp=$("vchat-inp"),txt=inp.value.trim();if(!txt)return;
+  const chatDoc=await getOne("chats",SESSION?.id);
+  const msgs=[...(chatDoc?.messages||[]),{from:"vendor",text:txt,time:tsNow(),read:false}];
+  await updOne("chats",SESSION?.id,{messages:msgs});
+  inp.value="";renderVChat();
+}
+window.sendVMsg=sendVMsg;
+
+// ══════════════════════════════════════════════════════
+// CHAT ACHETEUR ↔ VENDEUR
+// ══════════════════════════════════════════════════════
+async function openChat(vId,shopName){
+  if(!SESSION||SESSION.role!=="buyer"){toast("Connecte-toi d'abord !");showScr("s-bauth");navB();return;}
+  curChatVId=vId;
+  $("chat-hdr").innerHTML=`<div style="font-size:20px;">💬</div><div><div style="font-size:14px;font-weight:700;">${shopName}</div><div style="font-size:11px;color:var(--green);">En ligne</div></div>`;
+  const chatKey=`bchat_${SESSION.id}_${vId}`;
+  const chatDoc=await getOne("bchats",chatKey);
+  const msgs=chatDoc?.messages||[];
+  $("chat-msgs").innerHTML=msgs.length===0
+    ?`<div style="text-align:center;padding:30px;color:var(--t2);">Envoie ton premier message</div>`
+    :msgs.map(m=>`<div class="chat-msg ${m.from==="buyer"?"me":"them"}"><div class="chat-bubble">${m.text}</div><div class="chat-time">${m.time||""}</div></div>`).join("");
+  setTimeout(()=>{const el=$("chat-msgs");el.scrollTop=el.scrollHeight;},100);
+  openModal("m-chat");
+}
+async function sendBMsg(){
+  const inp=$("chat-inp"),txt=inp.value.trim();if(!txt||!curChatVId)return;
+  const chatKey=`bchat_${SESSION.id}_${curChatVId}`;
+  const chatDoc=await getOne("bchats",chatKey);
+  const msgs=[...(chatDoc?.messages||[]),{from:"buyer",text:txt,time:tsNow(),read:false}];
+  await setOne("bchats",chatKey,{messages:msgs,buyerId:SESSION.id,vendorId:curChatVId});
+  inp.value="";
+  $("chat-msgs").innerHTML+=`<div class="chat-msg me"><div class="chat-bubble">${txt}</div><div class="chat-time">${tsNow()}</div></div>`;
+  setTimeout(()=>{const el=$("chat-msgs");el.scrollTop=el.scrollHeight;},50);
+}
+window.openChat=openChat;window.sendBMsg=sendBMsg;
+
+// ══════════════════════════════════════════════════════
+// AVIS
+// ══════════════════════════════════════════════════════
+function openAvis(pid,name){
+  if(!SESSION||SESSION.role!=="buyer"){toast("Connecte-toi pour laisser un avis !");showScr("s-bauth");navB();return;}
+  avisTarget=pid;selStars=0;
+  $("avis-pname").textContent=name;$("avis-txt").value="";
+  $("star-sel").innerHTML=[1,2,3,4,5].map(i=>`<span onclick="selStar(${i})" data-s="${i}" style="font-size:28px;cursor:pointer;">☆</span>`).join("");
+  openModal("m-avis");
+}
+window.selStar=n=>{selStars=n;document.querySelectorAll("#star-sel span").forEach((s,i)=>s.textContent=i<n?"★":"☆");};
+async function submitAvis(){
+  if(!selStars){toast("Donne au moins 1 étoile.");return;}
+  const txt=$("avis-txt").value.trim();if(!txt){toast("Écris un commentaire.");return;}
+  const p=await getOne("products",avisTarget);if(!p)return;
+  const comments=[...(p.comments||[]),{authorId:SESSION.id,author:SESSION.name,stars:selStars,text:txt,date:dnow()}];
+  const ratings=[...(p.ratings||[]),selStars];
+  await updOne("products",avisTarget,{comments,ratings});
+  closeModal("m-avis");toast("✅ Avis publié !");
+}
+window.openAvis=openAvis;window.submitAvis=submitAvis;
+
+// ══════════════════════════════════════════════════════
+// SIGNALEMENT
+// ══════════════════════════════════════════════════════
+function openReport(pid){reportTarget=pid;openModal("m-report");}
+async function submitReport(){
+  const reason=$("report-r").value,detail=$("report-d").value.trim();
+  await addOne("reports",{pid:reportTarget,reason,detail,date:dnow(),reporterId:SESSION?.id||"anon",resolved:false});
+  closeModal("m-report");closeModal("m-prod");toast("✅ Signalement envoyé.");
+}
+window.openReport=openReport;window.submitReport=submitReport;
+
+// ══════════════════════════════════════════════════════
+// PROFIL VENDEUR
+// ══════════════════════════════════════════════════════
+async function renderVProfil(){
+  const v=await getOne("vendors",SESSION?.id);if(!v)return;
+  $("vprofil-c").innerHTML=`
+    <div style="text-align:center;margin-bottom:16px;">
+      <div class="ava" style="margin:0 auto 12px;"><div style="width:100%;height:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#000;">${v.shop?.[0]||"B"}</div></div>
+      <div style="font-size:18px;font-weight:800;">${v.shop}</div>
+      <div style="font-size:12px;color:var(--t2);margin-top:3px;">📍 ${v.qtr||""}, ${v.city}</div>
+      <div style="margin-top:8px;">${v.verified?`<span class="pill pg">✓ Certifiée</span>`:(v.status==="active"||v.status==="approved")?`<span class="pill pg">✅ Active</span>`:`<span class="pill pp">⏳ En attente</span>`}</div>
+    </div>
+    ${v.desc?`<div class="card" style="font-size:13px;color:var(--t2);line-height:1.5;margin-bottom:12px;">${v.desc}</div>`:""}
+    <div class="div"></div>
+    <div class="li"><div class="li-ico">📞</div><div><div style="font-size:13px;font-weight:600;">Téléphone</div><div style="font-size:12px;color:var(--t2);">${v.phone}</div></div></div>
+    <div class="li"><div class="li-ico">✉️</div><div><div style="font-size:13px;font-weight:600;">Email</div><div style="font-size:12px;color:var(--t2);">${v.email}</div></div></div>
+    <div class="div"></div>
+    <button class="btn bo" onclick="openEditVendor()">✏️ Modifier ma boutique</button>
+    <button class="btn bd" onclick="gvt('chat')">💬 Contacter le support</button>
+    <button class="btn br" onclick="doVLogout()">🚪 Déconnexion</button>`;
+}
+function openEditVendor(){
+  $("ev-shop").value=SESSION?.shop||"";$("ev-desc").value=SESSION?.desc||"";
+  $("ev-phone").value=SESSION?.phone||"";$("ev-qtr").value=SESSION?.qtr||"";
+  openModal("m-edit-vendor");
+}
+async function saveVendorEdit(){
+  const shop=$("ev-shop").value.trim();if(!shop){toast("Nom requis.");return;}
+  const data={shop,desc:$("ev-desc").value.trim(),phone:$("ev-phone").value.trim(),qtr:$("ev-qtr").value.trim()};
+  await updOne("vendors",SESSION.id,data);
+  SESSION={...SESSION,...data};localStorage.setItem("ism_sess",JSON.stringify(SESSION));
+  closeModal("m-edit-vendor");renderVProfil();toast("Boutique mise à jour !");
+}
+function doVLogout(){SESSION=null;localStorage.removeItem("ism_sess");goHome();toast("Déconnecté.");}
+window.renderVProfil=renderVProfil;window.openEditVendor=openEditVendor;window.saveVendorEdit=saveVendorEdit;window.doVLogout=doVLogout;
+
+// ══════════════════════════════════════════════════════
+// NOTIFICATIONS
+// ══════════════════════════════════════════════════════
+async function renderNotifs(){
+  const key=SESSION?.id||"guest";
+  const doc=await getOne("notifs",key);
+  const notifs=doc?.list||[];
+  $("notifs-list").innerHTML=notifs.length===0
+    ?`<div style="text-align:center;padding:28px;color:var(--t2);">Aucune notification</div>`
+    :notifs.map(n=>`<div style="display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--line);${n.read?"opacity:.55":""}">
+      <div style="font-size:20px;">${n.ico||"🔔"}</div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:600;">${n.txt}</div><div style="font-size:11px;color:var(--t2);margin-top:2px;">${n.time||""}</div></div>
+      ${!n.read?`<div style="width:8px;height:8px;background:var(--gold);border-radius:50%;margin-top:4px;flex-shrink:0;"></div>`:""}
+    </div>`).join("");
+}
+async function markAllRead(){
+  const key=SESSION?.id||"guest";
+  const d=await getOne("notifs",key);
+  const list=(d?.list||[]).map(n=>({...n,read:true}));
+  await setOne("notifs",key,{list});renderNotifs();
+}
+window.renderNotifs=renderNotifs;window.markAllRead=markAllRead;
+
+// ══════════════════════════════════════════════════════
+// ADMIN
+// ══════════════════════════════════════════════════════
+const ADM_TABS=["pending","vendors","products","reports","users","stats"];
+const ADM_LABELS={pending:"⏳ Demandes",vendors:"🛍️ Vendeurs",products:"📦 Produits",reports:"⚠️ Signalements",users:"👥 Membres",stats:"📊 Stats"};
+
+async function doAdmLogin(){
+  if($("adm-pwd").value!==APWD){toast("Mot de passe incorrect.");return;}
+  SESSION={id:"admin",role:"admin"};localStorage.setItem("ism_sess",JSON.stringify(SESSION));
+  showAdmPanel();toast("✅ Accès accordé.");
+}
+async function showAdmPanel(){
+  $("adm-lock").classList.add("h");$("adm-panel").classList.remove("h");
+  const [vendors,prods,buyers,reports]=await Promise.all([getAll("vendors"),getAll("products"),getAll("buyers"),getAll("reports")]);
+  const pending=vendors.filter(v=>v.status==="pending").length;
+  $("adm-stats").innerHTML=[
+    {l:"Actifs",v:vendors.filter(v=>v.status==="active").length},
+    {l:"Acheteurs",v:buyers.length},
+    {l:"Produits",v:prods.length},
+    {l:"Signalements",v:reports.filter(r=>!r.resolved).length},
+  ].map(s=>`<div class="scard"><div class="snum">${s.v}</div><div class="slbl">${s.l}</div></div>`).join("");
+  $("adm-tabs").innerHTML=ADM_TABS.map(t=>`<div class="chip${t===admTab?" on":""}" onclick="setAdmTab('${t}')">${ADM_LABELS[t]}${t==="pending"&&pending>0?` (${pending})`:""}</div>`).join("");
+  renderAdmTab(admTab);
+}
+window.setAdmTab=t=>{admTab=t;showAdmPanel();};
+
+async function renderAdmTab(t){
+  const [vendors,prods,buyers,reports,orders]=await Promise.all([getAll("vendors"),getAll("products"),getAll("buyers"),getAll("reports"),getAll("orders")]);
+  const allChats=await getAll("chats");
+  let html="";
+
+  if(t==="pending"){
+    const pv=vendors.filter(v=>v.status==="pending");
+    html=pv.length===0?`<div style="text-align:center;padding:24px;color:var(--t2);">✅ Aucune demande</div>`
+    :pv.map(v=>`<div class="card" style="border:1.5px solid rgba(232,169,61,.3);margin-bottom:10px;">
+      <div style="font-weight:700;font-size:14px;margin-bottom:3px;">${v.shop}</div>
+      <div style="font-size:12px;color:var(--t2);margin-bottom:6px;">📍 ${v.qtr||""}, ${v.city} · 📞 ${v.phone}<br>✉️ ${v.email}</div>
+      ${v.desc?`<div style="font-size:12px;color:var(--t2);margin-bottom:8px;font-style:italic;">${v.desc}</div>`:""}
+      <div style="display:flex;gap:8px;">
+        <button class="btn bv bsm" onclick="admApprove('${v.id}')">✅ Approuver</button>
+        <button class="btn br bsm" onclick="admReject('${v.id}')">❌ Refuser</button>
+      </div>
+    </div>`).join("");
+  }
+
+  if(t==="vendors"){
+    const active=vendors.filter(v=>v.status==="active");
+    const totalUnread=allChats.reduce((s,c)=>(c.messages||[]).filter(m=>m.from==="vendor"&&!m.read).length+s,0);
+    html=`<div style="font-size:13px;font-weight:700;margin-bottom:10px;">💬 Messages ${totalUnread>0?`<span class="pill py">${totalUnread}</span>`:""}</div>
+    ${active.map(v=>{
+      const chat=allChats.find(c=>c.id===v.id);
+      const msgs=chat?.messages||[];const unread=msgs.filter(m=>m.from==="vendor"&&!m.read).length;const last=msgs[msgs.length-1];
+      return `<div class="card" style="cursor:pointer;margin-bottom:8px;${unread>0?"border-color:var(--gold);":""}" onclick="openAdmChat('${v.id}')">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div><div style="font-weight:700;">${v.shop}</div><div style="font-size:12px;color:var(--t2);">${last?last.text?.slice(0,38)+"…":"Aucun message"}</div></div>
+          ${unread>0?`<span class="pill py">${unread}</span>`:`<span style="color:var(--t3);">›</span>`}
+        </div>
+      </div>`;}).join("") || `<div style="color:var(--t2);text-align:center;padding:14px;">Aucun vendeur actif</div>`}
+    <div class="div"></div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:10px;">Boutiques (${active.length})</div>
+    ${active.map(v=>{const dl=daysLeft(v.createdAt);
+      return `<div class="card" style="margin-bottom:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div><div style="font-weight:700;">${v.shop} ${v.verified?`<span class="pill pg" style="font-size:9px;">✓</span>`:""}</div>
+            <div style="font-size:11.5px;color:var(--t2);">📍 ${v.city} · ${v.phone}</div>
+            <div style="display:flex;gap:4px;margin-top:5px;"><span class="pill pg" style="font-size:9px;">Actif</span><span class="pill ${dl>0?"py":"pr"}" style="font-size:9px;">${dl>0?dl+"j":"Expiré"}</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <button class="btn bv bsm" style="font-size:10px;" onclick="admVerify('${v.id}')">${v.verified?"Revoir":"✓ Certifier"}</button>
+            <button class="btn br bsm" style="font-size:10px;" onclick="admSuspend('${v.id}')">Suspendre</button>
+          </div>
+        </div>
+      </div>`;}).join("")}
+    ${vendors.filter(v=>v.status==="suspended").map(v=>`<div class="card" style="margin-bottom:8px;border-color:rgba(239,68,68,.3);">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:700;color:var(--red);">🚫 ${v.shop}</div><div style="font-size:11.5px;color:var(--t2);">${v.city}</div></div>
+        <button class="btn bv bsm" onclick="admReactivate('${v.id}')">Réactiver</button>
+      </div>
+    </div>`).join("")}`;
+  }
+
+  if(t==="products"){
+    html=`<div style="font-size:13px;font-weight:700;margin-bottom:10px;">Produits (${prods.length})</div>
+    ${[...prods].reverse().slice(0,30).map(p=>{
+      const v=vendors.find(x=>x.id===p.vId);
+      return `<div class="card" style="display:flex;align-items:center;gap:9px;margin-bottom:8px;">
+        <div style="font-size:22px;">${p.emoji||"🛍️"}</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">${p.name}</div><div style="font-size:11px;color:var(--t2);">${v?.shop||"?"} · ${fF(p.price)} · ${p.on?"✅":"❌"}</div></div>
+        <button class="btn br bsm" onclick="admDelProd('${p.id}')">🗑</button>
+      </div>`;}).join("")||`<div style="color:var(--t2);text-align:center;padding:20px;">Aucun produit</div>`}`;
+  }
+
+  if(t==="reports"){
+    const open=reports.filter(r=>!r.resolved);
+    html=`<div style="font-size:13px;font-weight:700;margin-bottom:10px;">Signalements (${open.length})</div>
+    ${open.map(r=>{const p=prods.find(x=>x.id===r.pid);
+      return `<div class="card" style="border:1.5px solid rgba(239,68,68,.3);margin-bottom:9px;">
+        <div style="font-weight:700;margin-bottom:4px;">⚠️ ${r.reason}</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:6px;">Produit: ${p?.name||"Supprimé"}<br>${r.detail||""}<br>${r.date||""}</div>
+        <div style="display:flex;gap:7px;">
+          ${p?`<button class="btn br bsm" onclick="admDelProd('${r.pid}')">🗑 Supprimer</button>`:""}
+          <button class="btn bv bsm" onclick="admResolveReport('${r.id}')">✅ Résoudre</button>
+        </div>
+      </div>`;}).join("")||`<div style="color:var(--t2);text-align:center;padding:20px;">✅ Aucun signalement</div>`}`;
+  }
+
+  if(t==="users"){
+    html=`<div style="font-size:13px;font-weight:700;margin-bottom:10px;">Acheteurs (${buyers.length})</div>
+    ${buyers.map(b=>`<div class="card" style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+      <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#000;flex-shrink:0;">${b.name?.[0]||"?"}</div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:600;">${b.name}</div><div style="font-size:11px;color:var(--t2);">${b.email||""} · ${b.city||""}</div></div>
+      <button class="btn br bsm" onclick="admDelUser('${b.id}')">🗑</button>
+    </div>`).join("")||`<div style="color:var(--t2);text-align:center;padding:20px;">Aucun acheteur</div>`}`;
+  }
+
+  if(t==="stats"){
+    const revenue=orders.filter(o=>o.status==="delivered").reduce((s,o)=>s+(o.items||[]).reduce((ss,i)=>ss+i.price*i.qty,0),0);
+    html=`<div class="sgrid">
+      <div class="scard"><div class="snum">${vendors.filter(v=>v.status==="active").length}</div><div class="slbl">Vendeurs actifs</div></div>
+      <div class="scard"><div class="snum">${buyers.length}</div><div class="slbl">Acheteurs</div></div>
+      <div class="scard"><div class="snum">${prods.length}</div><div class="slbl">Produits</div></div>
+      <div class="scard"><div class="snum">${orders.length}</div><div class="slbl">Commandes</div></div>
+    </div>
+    <div class="card-gold" style="border-radius:14px;padding:14px;text-align:center;margin-top:4px;">
+      <div style="font-size:11px;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:4px;">Revenus abonnements potentiels</div>
+      <div style="font-size:24px;font-weight:800;color:var(--gold);">${(vendors.filter(v=>v.status==="active").length*5000).toLocaleString("fr-FR")} FCFA/mois</div>
+    </div>`;
+  }
+
+  $("adm-content").innerHTML=html;
+}
+window.renderAdmTab=renderAdmTab;
+
+// Admin approuve → écrit "active" (pas "approved") pour cohérence
+window.admApprove=async id=>{
+  await updOne("vendors",id,{status:"active",approvedAt:new Date().toISOString()});
+  showAdmPanel();toast("✅ Boutique approuvée !");
+};
+window.admReject=async id=>{await delOne("vendors",id);showAdmPanel();toast("Demande refusée.");};
+window.admVerify=async id=>{const v=await getOne("vendors",id);if(!v)return;await updOne("vendors",id,{verified:!v.verified});showAdmPanel();toast(v.verified?"Certification retirée.":"✓ Certifiée !");};
+window.admSuspend=async id=>{await updOne("vendors",id,{status:"suspended"});showAdmPanel();toast("Suspendu.");};
+window.admReactivate=async id=>{await updOne("vendors",id,{status:"active"});showAdmPanel();toast("Réactivé.");};
+window.admDelProd=async id=>{if(!confirm("Supprimer ?"))return;await delOne("products",id);showAdmPanel();toast("Supprimé.");};
+window.admResolveReport=async id=>{await updOne("reports",id,{resolved:true});showAdmPanel();toast("Résolu.");};
+window.admDelUser=async id=>{if(!confirm("Supprimer ?"))return;await delOne("buyers",id);showAdmPanel();toast("Supprimé.");};
+
+// Admin chat
+async function openAdmChat(vId){
+  curAdmChat=vId;
+  const v=await getOne("vendors",vId);
+  $("adc-title").textContent=v?.shop||"Vendeur";
+  $("adc-sub").textContent=`${v?.city||""} · ${v?.phone||""}`;
+  const chatDoc=await getOne("chats",vId);
+  const msgs=chatDoc?.messages||[];
+  const updated=msgs.map(m=>m.from==="vendor"?{...m,read:true}:m);
+  await updOne("chats",vId,{messages:updated});
+  $("adc-msgs").innerHTML=msgs.length===0
+    ?`<div style="text-align:center;padding:40px;color:var(--t2);">Aucun message</div>`
+    :msgs.map(m=>`<div class="chat-msg ${m.from==="admin"?"me":"them"}"><div class="chat-bubble">${m.text}</div><div class="chat-time">${m.from==="admin"?"Toi (admin)":v?.shop||"Vendeur"} · ${m.time||""}</div></div>`).join("");
+  setTimeout(()=>{const el=$("adc-msgs");el.scrollTop=el.scrollHeight;},100);
+  showScr("s-admchat");navN();
+}
+async function sendAdmMsg(){
+  const inp=$("adc-inp"),txt=inp.value.trim();if(!txt||!curAdmChat)return;
+  const chatDoc=await getOne("chats",curAdmChat);
+  const msgs=[...(chatDoc?.messages||[]),{from:"admin",text:txt,time:tsNow(),read:false}];
+  await updOne("chats",curAdmChat,{messages:msgs});
+  inp.value="";
+  $("adc-msgs").innerHTML+=`<div class="chat-msg me"><div class="chat-bubble">${txt}</div><div class="chat-time">${tsNow()}</div></div>`;
+  setTimeout(()=>{const el=$("adc-msgs");el.scrollTop=el.scrollHeight;},50);
+}
+window.openAdmChat=openAdmChat;window.sendAdmMsg=sendAdmMsg;
+window.doAdmLogin=doAdmLogin;window.showAdmPanel=showAdmPanel;
+
+// ══════════════════════════════════════════════════════
+// ACCÈS ADMIN SECRET
+// ══════════════════════════════════════════════════════
+window.addEventListener("hashchange",()=>{if(location.hash==="#admin")goAdmin();});
+
+// ══════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════
+["logo-bauth","logo-vauth"].forEach(id=>{if($(id))$(id).innerHTML=mkL(60)+`<div style="font-size:20px;font-weight:800;margin-top:10px;">ISM<span style="color:#E8A93D;">ARKET</span> <span style="font-size:10px;background:linear-gradient(135deg,#E8A93D,#f5c842);color:#000;border-radius:5px;padding:2px 6px;">2.0</span></div>`;});
+CITIES.forEach(c=>{["br-city","eb-city"].forEach(id=>{const el=$(id);if(el&&!el.querySelector(`option[value="${c}"]`))el.innerHTML+=`<option value="${c}">${c}</option>`;});});
+
+// Restore session
+try{
+  const s=localStorage.getItem("ism_sess");
+  if(s){
+    SESSION=JSON.parse(s);
+    if(SESSION.role==="vendor")gvt("dash");
+    else if(SESSION.role==="admin"){goAdmin();showAdmPanel();}
+    else goHome();
+  } else goHome();
+}catch(e){goHome();}
+
+if(location.hash==="#admin")goAdmin();
+</script>
+</body>
+</html>
