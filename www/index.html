@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ISMarket v2 - Production</title>
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="/manifest.json">
+    <style>
+        :root {
+            --bg: #0a0a0a; --bg2: #111111; --bg3: #1a1a1a; --bg4: #222222;
+            --gold: #E8A93D; --gold2: #f5c842; --gold3: rgba(232, 169, 61, 0.13);
+            --green: #22c55e; --red: #ef4444; --blue: #3b82f6; --text: #ffffff;
+            --t2: rgba(255, 255, 255, 0.62); --t3: rgba(255, 255, 255, 0.28);
+            --line: rgba(255, 255, 255, 0.08); --r: 14px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-user-select: none; user-select: none; }
+        .app-container { display: flex; flex-direction: column; min-height: 100vh; padding-bottom: 80px; }
+        .view-section { display: none; padding: 16px; animation: fadeIn 0.15s ease-out; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
+        .grid-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; padding: 8px 0; }
+        .product-card { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; position: relative; transition: transform 0.1s ease; cursor: pointer; }
+        .product-card:active { transform: scale(0.98); }
+        .product-img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--bg3); }
+        .product-info { padding: 10px; }
+        .product-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .product-price { font-size: 15px; color: var(--gold); font-weight: 700; margin-top: 4px; }
+        .search-bar-container { display: flex; gap: 8px; margin-bottom: 12px; background: var(--bg2); padding: 8px; border-radius: var(--r); border: 1px solid var(--line); }
+        .search-input { flex: 1; background: transparent; border: none; color: var(--text); font-size: 15px; outline: none; }
+        .filter-select { background: var(--bg3); border: 1px solid var(--line); color: var(--text); padding: 6px 10px; border-radius: 8px; font-size: 13px; outline: none; }
+        .dash-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+        .stat-card { background: var(--bg2); border: 1px solid var(--line); padding: 14px; border-radius: var(--r); }
+        .stat-val { font-size: 20px; font-weight: bold; color: var(--gold); margin-top: 4px; }
+        .stat-label { font-size: 12px; color: var(--t2); text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 64px; background: rgba(17,17,17,0.96); backdrop-filter: blur(20px); border-top: 1px solid var(--line); display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--t2); font-size: 11px; text-decoration: none; cursor: pointer; }
+        .nav-item.active { color: var(--gold); }
+        .nav-icon { width: 22px; height: 22px; margin-bottom: 4px; }
+        #loader { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; flex-direction: column; gap: 12px; }
+        .spinner { width: 40px; height: 40px; border: 3px solid var(--line); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .form-group { margin-bottom: 12px; display: flex; flex-direction: column; gap: 6px; }
+        .form-control { background: var(--bg2); border: 1px solid var(--line); border-radius: 8px; padding: 10px; color: #fff; font-size: 14px; outline: none; }
+        .btn { background: var(--gold); color: #000; font-weight: bold; border: none; padding: 12px; border-radius: 8px; cursor: pointer; text-align: center; font-size: 15px; width: 100%; }
+        .btn:active { opacity: 0.8; }
+        .item-card { background: var(--bg2); border: 1px solid var(--line); padding: 12px; border-radius: 10px; margin-bottom: 8px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <div id="loader"><div class="spinner"></div><div id="loader-text">Traitement...</div></div>
+
+    <div class="app-container">
+        <div id="view-home" class="view-section active">
+            <div class="search-bar-container">
+                <input type="text" id="main-search" class="search-input" placeholder="Rechercher un produit..." oninput="filtrerCatalogue()">
+                <select id="filter-category" class="filter-select" onchange="filtrerCatalogue()">
+                    <option value="all">Toutes Catégories</option>
+                    <option value="electronique">Électronique</option>
+                    <option value="mode">Mode & Vêtements</option>
+                    <option value="sante">Santé & Beauté</option>
+                    <option value="alimentation">Alimentation</option>
+                </select>
+            </div>
+            <div class="grid-products" id="market-products-render"></div>
+        </div>
+
+        <div id="view-vendor" class="view-section">
+            <h2 style="margin-bottom:12px;">Mon Espace Vendeur</h2>
+            <div class="dash-stats">
+                <div class="stat-card"><div class="stat-label">Ventes Validées</div><div class="stat-val" id="v-stat-revenus">0 F</div></div>
+                <div class="stat-card"><div class="stat-label">Commandes</div><div class="stat-val" id="v-stat-orders">0</div></div>
+            </div>
+
+            <h3 style="margin: 16px 0 8px 0;">Ajouter un produit</h3>
+            <div style="background: var(--bg2); padding: 12px; border-radius: var(--r); border:1px solid var(--line); margin-bottom: 20px;">
+                <div class="form-group"><input type="text" id="p-add-name" class="form-control" placeholder="Nom du produit"></div>
+                <div class="form-group"><input type="number" id="p-add-price" class="form-control" placeholder="Prix (XAF)"></div>
+                <div class="form-group">
+                    <select id="p-add-category" class="form-control">
+                        <option value="electronique">Électronique</option>
+                        <option value="mode">Mode & Vêtements</option>
+                        <option value="sante">Santé & Beauté</option>
+                        <option value="alimentation">Alimentation</option>
+                    </select>
+                </div>
+                <div class="form-group"><input type="file" id="p-add-file" class="form-control" accept="image/*"></div>
+                <button class="btn" onclick="publierProduit()">Mettre en ligne</button>
+            </div>
+            <h3 style="margin-bottom: 8px;">Suivi des ventes</h3>
+            <div id="vendor-orders-list"></div>
+        </div>
+
+        <div id="view-admin" class="view-section">
+            <h2 style="margin-bottom:12px; color:var(--red);">Console d'Administration</h2>
+            <div class="dash-stats">
+                <div class="stat-card"><div class="stat-label">Volume Global</div><div class="stat-val" id="a-stat-volume">0 F</div></div>
+                <div class="stat-card"><div class="stat-label">Total Produits</div><div class="stat-val" id="a-stat-products">0</div></div>
+            </div>
+            <h3 style="margin-bottom:8px;">Historique des Paiements</h3>
+            <div id="admin-payments-list"></div>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <div class="nav-item active" onclick="gvt('home', this)">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Market
+        </div>
+        <div class="nav-item" id="nav-vendor-btn" onclick="gvt('vendor', this)">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg>Boutique
+        </div>
+        <div class="nav-item" id="nav-admin-btn" onclick="gvt('admin', this)" style="display:none;">
+            <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>Admin
+        </div>
+    </nav>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+        // ==========================================
+        // CONFIGURATION FIREBASE
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyB2zu4dOJt2sf04t0bw6nAbKIF-Ebn84Jg",
+            authDomain: "ismarket.firebaseapp.com",
+            projectId: "ismarket",
+            storageBucket: "ismarket.firebasestorage.app",
+            messagingSenderId: "540791548761",
+            appId: "1:540791548761:web:7af88b6a9c40e8e3fafa48",
+            measurementId: "G-BSNP2ZFFHG"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let SESSION = null;
+        let cacheProduits = [];
+
+        // ==========================================
+        // CONFIGURATION CLOUDINARY
+        // ==========================================
+        const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dyern9jn5/image/upload";
+        const CLOUDINARY_PRESET = "ismarket_unsigned";
+        const BACKEND_FUNCTIONS_URL = "https://us-central1-ismarket.cloudfunctions.net";
+
+        function initSession() {
+            let local = localStorage.getItem("ism_sess");
+            if (local) {
+                SESSION = JSON.parse(local);
+            } else {
+                SESSION = { id: "user_" + Math.random().toString(36).substring(2, 12), role: "admin", phone: "" };
+                localStorage.setItem("ism_sess", JSON.stringify(SESSION));
+            }
+            if (SESSION.role === "admin") {
+                document.getElementById("nav-admin-btn").style.display = "flex";
+            }
+        }
+
+        window.gvt = function(cible, element) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('view-' + cible).classList.add('active');
+
+            if (cible === 'vendor') chargerDashboardVendeur();
+            if (cible === 'admin') chargerDashboardAdmin();
+        }
+
+        function showLdr(txt) { document.getElementById("loader-text").innerText = txt; document.getElementById("loader").style.display = "flex"; }
+        function hideLdr() { document.getElementById("loader").style.display = "none"; }
+
+        async function chargerCatalogue() {
+            try {
+                const snapshot = await getDocs(collection(db, "products"));
+                cacheProduits = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                rendreCatalogue(cacheProduits);
+            } catch (err) { console.error("Erreur Firestore :", err); }
+        }
+
+        function rendreCatalogue(liste) {
+            const container = document.getElementById("market-products-render");
+            container.innerHTML = liste.length === 0 ? "<div style='padding:20px;color:var(--t2);'>Aucun produit disponible.</div>" : "";
+            liste.forEach(p => {
+                const imgUrl = p.image ? p.image.replace("/upload/", "/upload/w_300,h_300,c_thumb,q_auto,f_auto/") : "";
+                container.innerHTML += `
+                    <div class="product-card" id="prod-${p.id}">
+                        <img class="product-img" src="${imgUrl}" alt="">
+                        <div class="product-info">
+                            <div class="product-title">${p.name}</div>
+                            <div class="product-price">${Number(p.price).toLocaleString()} F</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            liste.forEach(p => {
+                document.getElementById(`prod-${p.id}`).addEventListener('click', () => initierAchat(p));
+            });
+        }
+
+        window.filtrerCatalogue = function() {
+            const q = document.getElementById("main-search").value.toLowerCase().trim();
+            const cat = document.getElementById("filter-category").value;
+            const res = cacheProduits.filter(p => {
+                return (p.name.toLowerCase().includes(q)) && (cat === "all" || p.category === cat);
+            });
+            rendreCatalogue(res);
+        }
+
+        window.publierProduit = async function() {
+            const name = document.getElementById("p-add-name").value.trim();
+            const price = document.getElementById("p-add-price").value.trim();
+            const category = document.getElementById("p-add-category").value;
+            const fileInput = document.getElementById("p-add-file");
+
+            if(!name || !price || fileInput.files.length === 0) { alert("Veuillez remplir tous les champs."); return; }
+            showLdr("Téléversement sécurisé de l'image...");
+
+            try {
+                const formData = new FormData();
+                formData.append("file", fileInput.files[0]);
+                formData.append("upload_preset", CLOUDINARY_PRESET);
+
+                const upRes = await fetch(CLOUDINARY_URL, { method: "POST", body: formData });
+                const upData = await upRes.json();
+
+                if(!upData.secure_url) throw new Error("Échec upload");
+
+                await addDoc(collection(db, "products"), {
+                    name, price: Number(price), category, image: upData.secure_url, vId: SESSION.id, createdAt: new Date()
+                });
+
+                alert("Produit publié avec succès !");
+                hideLdr();
+                chargerCatalogue();
+                gvt('home', document.querySelectorAll('.nav-item')[0]);
+            } catch (err) { hideLdr(); alert("Erreur d'envoi : " + err.message); }
+        }
+
+        async function initierAchat(produit) {
+            if(!confirm(`Confirmer l'achat de ${produit.name} pour ${produit.price} F ?`)) return;
+            const op = prompt("Opérateur :\n1 - MTN Mobile Money\n2 - Orange Money");
+            if(op !== "1" && op !== "2") return;
+
+            let phone = prompt("Entrez votre numéro de paiement (Ex: 697xxxxxx) :");
+            if(!phone) return;
+
+            showLdr("Initialisation du paiement sécurisé...");
+            try {
+                const response = await fetch(`${BACKEND_FUNCTIONS_URL}/initierPaiement`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        amount: produit.price,
+                        phoneNumber: phone,
+                        operator: op === "1" ? "MTN" : "ORANGE",
+                        buyerId: SESSION.id,
+                        vId: produit.vId || "system",
+                        productId: produit.id
+                    })
+                });
+
+                const resData = await response.json();
+                hideLdr();
+
+                if(resData.success) {
+                    alert("🔒 Demande envoyée ! Veuillez valider le débit sur votre téléphone.");
+                    écouterStatutPaiement(resData.paymentRef);
+                } else {
+                    alert("Erreur opérateur : " + resData.message);
+                }
+            } catch(e) { hideLdr(); alert("Erreur de connexion avec le serveur de paiement backend."); }
+        }
+
+        function écouterStatutPaiement(paymentRef) {
+            onSnapshot(doc(db, "payments", paymentRef), (snapshot) => {
+                const data = snapshot.data();
+                if(data && data.status === "SUCCESS") {
+                    alert("✅ Paiement confirmé automatiquement par Webhook ! Votre commande est prête.");
+                } else if(data && data.status === "FAILED") {
+                    alert("❌ Le paiement a été refusé ou annulé.");
+                }
+            });
+        }
+
+        async function chargerDashboardVendeur() {
+            const qVentes = query(collection(db, "orders"), where("vId", "==", SESSION.id));
+            const snap = await getDocs(qVentes);
+            let total = 0;
+            const container = document.getElementById("vendor-orders-list");
+            container.innerHTML = "";
+            snap.forEach(d => {
+                const o = d.data();
+                if(o.paymentStatus === "PAID") total += Number(o.totalPrice);
+                container.innerHTML += `
+                    <div class="item-card">
+                        <b>Commande ID :</b> ${d.id}<br><b>Montant :</b> ${o.totalPrice} F <br>
+                        <b>Statut :</b> <span style="color:var(--green)">${o.paymentStatus}</span>
+                    </div>`;
+            });
+            document.getElementById("v-stat-revenus").innerText = total.toLocaleString() + " F";
+            document.getElementById("v-stat-orders").innerText = snap.size;
+        }
+
+        async function chargerDashboardAdmin() {
+            const snap = await getDocs(collection(db, "payments"));
+            let total = 0;
+            const container = document.getElementById("admin-payments-list");
+            container.innerHTML = "";
+            snap.forEach(d => {
+                const p = d.data();
+                if(p.status === "SUCCESS") total += Number(p.amount);
+                container.innerHTML += `
+                    <div class="item-card">
+                        <b>Ref:</b> ${d.id} | <b>Somme:</b> ${p.amount} F<br>
+                        <b>Statut:</b> ${p.status} | <b>Opérateur:</b> ${p.operator}
+                    </div>`;
+            });
+            document.getElementById("a-stat-volume").innerText = total.toLocaleString() + " F";
+            const pSnap = await getDocs(collection(db, "products"));
+            document.getElementById("a-stat-products").innerText = pSnap.size;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initSession();
+            chargerCatalogue();
+        });
+
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
+</body>
+</html>
